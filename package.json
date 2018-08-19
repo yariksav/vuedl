@@ -1,0 +1,69 @@
+{
+  "name": "vuedl",
+  "version": "0.0.1",
+  "description": "Vue dialog helper",
+  "scripts": {
+    "build2": "npm run build:module && cp -r dist/ ../../cmpact/billing-front/node_modules/vv-dialog/dist/",
+    "build": "npm run build:module && npm run build:browser",
+    "build:module": "bili --name vdialog --format cjs,es --plugin vue --js buble",
+    "build:browser": "bili --name vdialog --format umd,umd-min --external vue --global.vue \"Vue\" --plugin vue --js buble",
+    "lint": "eslint --ext js --ext vue src",
+    "lint:fix": "npm run lint -- --fix",
+    "prepublish": "npm run build",
+    "test": "jest --env=jsdom"
+  },
+  "main": "dist/vdialog.cjs.js",
+  "module": "dist/vdialog.esm.js",
+  "browser": "dist/vdialog.js",
+  "cdn": "dist/vdialog.min.js",
+  "unpkg": "dist/vdialog.min.js",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yariksav/vuedl.git"
+  },
+  "keywords": [
+    "vue",
+    "dialog",
+    "modal"
+  ],
+  "author": "Yaroslav Savaryn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yariksav/vuedl/issues"
+  },
+  "homepage": "https://github.com/yariksav/vuedl#readme",
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.24",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "bili": "^3.1.2",
+    "eslint": "^5.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-vue": "^4.7.1",
+    "jest": "^23.5.0",
+    "lodash": "^4.17.10",
+    "rollup-plugin-vue": "^4.3.2",
+    "vue": "^2.4.4",
+    "vue-jest": "^2.6.0",
+    "vue-template-compiler": "^2.5.17",
+    "vue-test-utils": "^1.0.0-beta.11"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
+  },
+  "peerDependencies": {
+    "vue": "*"
+  }
+}
