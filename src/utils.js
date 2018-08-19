@@ -29,8 +29,8 @@ export function promisify (fn, context) {
 }
 
 export function destroyVueElement (vm) {
-  if (vm && vm._isMounted && !vm._isDestroyed
-    && (typeof vm.$destroy === 'function')) {
+  if (vm && vm._isMounted && !vm._isDestroyed &&
+    (typeof vm.$destroy === 'function')) {
     vm.$destroy()
   }
 }
@@ -63,7 +63,7 @@ export function applyAsyncData (Component, asyncData) {
   }
   Component.options.hasAsyncData = true
   Component.options.data = function () {
-    const data =  ComponentData.call(this)
+    const data = ComponentData.call(this)
     if (this.$ssrContext) {
       asyncData = this.$ssrContext.asyncData[Component.cid]
     }
@@ -94,7 +94,6 @@ export function sanitizeComponent (Component) {
 }
 
 export async function ensureAsyncDatas (components, context) {
-
   if (!Array.isArray(components)) {
     if (!components) {
       return null
@@ -128,5 +127,4 @@ export async function ensureAsyncDatas (components, context) {
 
     return Promise.all(promises)
   }))
-
 }

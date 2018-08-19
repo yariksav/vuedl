@@ -7,9 +7,8 @@
  * file that was distributed with this source code.
 */
 
-import Dialog from './dialog';
-import Overlay from './overlay';
-import { sanitizeComponent } from './utils';
+import Dialog from './dialog'
+import Overlay from './overlay'
 
 const proxyHandler = {
 
@@ -34,7 +33,6 @@ const proxyHandler = {
 }
 
 export default class DialogManager {
-
   constructor ({ context, container } = {}) {
     this._context = context || {}
     Dialog.prototype.context = context || {}
@@ -97,7 +95,7 @@ export default class DialogManager {
     const dlg = this.create(component)
 
     if (!dlg.needOverlay) {
-      return await dlg.show(options)
+      return dlg.show(options)
     }
 
     const overlay = component.overlay || 'default'
@@ -105,7 +103,7 @@ export default class DialogManager {
     try {
       let ret = await dlg.show(options)
       this.overlay(overlay).hide()
-      return ret 
+      return ret
     } catch (e) {
       this.overlay(overlay).hide()
       throw e
@@ -134,7 +132,11 @@ export default class DialogManager {
     const cmp = this.getComponent('Confirm')
 
     return this.showAndWait(cmp.component, {
-      title, message, buttons, width, type,
+      title,
+      message,
+      buttons,
+      width,
+      type,
       persistent: true
     })
   }
@@ -151,5 +153,4 @@ export default class DialogManager {
     }
     return this.confirm(message, title, { buttons, width, type: 'error' })
   }
-
 }

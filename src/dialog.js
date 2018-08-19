@@ -11,7 +11,6 @@ import {
 } from './utils'
 
 export default class Dialog {
-
   constructor (component, { wrapper, container } = {}) {
     if (!component) {
       throw Error('Component was not sended')
@@ -26,7 +25,6 @@ export default class Dialog {
   }
 
   async show (params = {}, options = {}) {
-
     let Ctor
     if (this._wrapper) {
       const DialogCtor = sanitizeComponent(merge({
@@ -66,7 +64,7 @@ export default class Dialog {
 
   wait () {
     if (!this.showed) {
-      return Promise.reject('Dialog was closed or not showed')
+      return Promise.reject(new Error('Dialog was closed or not showed'))
     }
     return new Promise(resolve => {
       this._resolvers.push(resolve)

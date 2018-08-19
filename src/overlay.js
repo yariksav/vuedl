@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 export default class Overlay {
-
   constructor (component) {
     this._component = component
     this._vm = null

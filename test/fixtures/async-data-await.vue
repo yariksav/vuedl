@@ -9,7 +9,7 @@ const fetchData = () => {
   })
 }
 export default {
-  async asyncData() {
+  async asyncData () {
     const data = await fetchData()
     return data
   }

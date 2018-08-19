@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  asyncData(context, callback) {
+  asyncData (context, callback) {
     setTimeout(function () {
       callback(null, { name: 'Async data with callback' })
     }, 10)
