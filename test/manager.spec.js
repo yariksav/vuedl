@@ -1,14 +1,12 @@
 import DialogManager from '../src/manager'
 import Vue from 'vue'
 import FooBarComponent from './fixtures/foobar'
-import AsyncData  from './fixtures/async-data'
-import Layout  from './fixtures/layout'
-import { createWrapper } from '@vue/test-utils'
+import AsyncData from './fixtures/async-data'
+import Layout from './fixtures/layout'
 import { wrap } from './utils'
 import Plugin from '../src'
 
 describe('manager', () => {
-
   beforeAll(() => {
     Vue.use(Plugin)
   })
@@ -38,7 +36,9 @@ describe('manager', () => {
   // })
 
   test('Check creating component by getters', async () => {
-    const foobar = await manager.show(FooBarComponent, { name: 'Bar'})
+    const foobar = await manager.show(FooBarComponent, {
+      name: 'Bar'
+    })
     const html = window.document.body.innerHTML
     expect(html.includes('<p>Foo Bar</p>')).toBe(true)
     foobar.close()
@@ -72,5 +72,4 @@ describe('manager', () => {
     // expect(dlg.element).toBe(null)
     // expect(dlg.vm).toBe(null)
   })
-
 })

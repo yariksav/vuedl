@@ -1,22 +1,21 @@
 import Dialog from '../src/dialog'
 import Vue from 'vue'
 import FooBar from './fixtures/foobar'
-import AsyncData  from './fixtures/async-data'
-import AsyncDataAwait  from './fixtures/async-data-await'
-import AsyncDataError  from './fixtures/async-data-error'
+import AsyncData from './fixtures/async-data'
+import AsyncDataAwait from './fixtures/async-data-await'
+import AsyncDataError from './fixtures/async-data-error'
 import AsyncDataCb from './fixtures/async-data-callback'
-import ManyTimesUsage  from './fixtures/many-times-usage'
-import { wrap, sleep } from './utils'
+import ManyTimesUsage from './fixtures/many-times-usage'
+import { sleep } from './utils'
 import Plugin from '../src'
 
 describe('dialog', () => {
-
   beforeAll(() => {
     Vue.use(Plugin)
   })
 
   test('Check self asyncData and fetch', async () => {
-    //const context = {store: 'ctx'}
+    // const context = {store: 'ctx'}
     const fetchFn = jest.fn(() => {
       return new Promise(resolve => {
         setTimeout(() => resolve('fetched'), 10)
@@ -128,17 +127,4 @@ describe('dialog', () => {
   //   expect(dlg.element).toBe(null)
   //   expect(dlg.vm).toBe(null)
   // })
-
 })
-
-// TODO
-// confirm, warning, with wait()
-// add layouts and dialog-child component, see nuxt cmp
-// add build by schema
-// add middlewares
-// dialog.show(component, params, options)
-// dialog.Component(params, options)
-// dialog.confirm(question, description, options={buttons, type=[info]}) : string | boolean
-// dialog.warning(message, description, opt) : string | boolean
-// dialog.prompt(message, description, opt): String
-

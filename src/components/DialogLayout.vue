@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     onMaskClick () {
-      console.log('cl', this)
       if (!this.persistent) {
         this.$destroy()
       }

@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true
+    node: true,
+    'jest/globals': true
   },
   parserOptions: {
     parser: 'babel-eslint'
@@ -11,8 +12,12 @@ module.exports = {
     'plugin:vue/strongly-recommended',
     'standard'
   ],
-  plugins: ['vue'],
+  plugins: [
+    'vue',
+    'jest'
+  ],
   rules: {
+    "jest": true,
     ident: false,
     'no-debugger': 'off',
     'no-console': 'off',

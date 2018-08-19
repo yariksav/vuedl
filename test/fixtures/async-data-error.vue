@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  asyncData({ req }) {
+  asyncData ({ req }) {
     throw new Error('Error in asyncData')
   }
 }

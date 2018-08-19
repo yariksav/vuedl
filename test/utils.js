@@ -5,7 +5,7 @@ export function sleep (ms = 0) {
 }
 
 export function wrap (vm) {
-  return createWrapper({ componentInstance: vm}, {
+  return createWrapper({ componentInstance: vm }, {
     attachedToDocument: true
   })
 }

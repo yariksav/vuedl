@@ -3,13 +3,12 @@ import DialogManager from '../src/manager'
 import Vue from 'vue'
 
 describe('Component', () => {
-
-  let manager
+  // let manager
 
   test('Register plugin in vue instance', () => {
     Vue.use(Plugin)
     expect(Vue.prototype.$dialog).toBeInstanceOf(DialogManager)
-    manager = Vue.prototype.$dialog
+    // manager = Vue.prototype.$dialog
   })
 
   // test('Check throws when register with reserved names', () => {
@@ -25,5 +24,4 @@ describe('Component', () => {
   //   const simple = await manager.SimpleComponent({ propsData: { name: 'world'}} )
   //   expect(document.getElementById('simple-content').innerHTML.trim()).toBe(`Hello world`)
   // })
-
 })
