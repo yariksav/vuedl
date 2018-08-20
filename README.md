@@ -81,7 +81,7 @@ Vue.prototype.$dialog.layout('default', MyLayout)
 
 Example of the layout template
 ```html
-  <v-dialog v-model="showed" :max-width="width">
+  <v-dialog v-model="isActive" :max-width="width">
     <dialog-child v-bind="$options.propsData" ref="dialog"/>
   </v-dialog>
 ```

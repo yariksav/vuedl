@@ -28,10 +28,11 @@ describe('dialog', () => {
       })
     })
 
-    const cmp = Object.assign({
+    const cmp = {
       fetch: fetchFn,
-      asyncData: asyncDataFn
-    }, FooBar)
+      asyncData: asyncDataFn,
+      ...FooBar
+    }
 
     const dlg = new Dialog(cmp)
     await dlg.show()

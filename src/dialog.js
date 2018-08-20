@@ -1,3 +1,12 @@
+/*
+ * vuedl
+ *
+ * (c) Savaryn Yaroslav <yariksav@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+*/
+
 import Vue from 'vue'
 import DialogMixin from './mixins/dialog'
 import WrapperMixin from './mixins/wrapper'
@@ -31,7 +40,7 @@ export default class Dialog {
         mixins: [DialogMixin]
       }, this._component))
 
-      await ensureAsyncDatas(DialogCtor, Object.assign({ params }, this.context))
+      await ensureAsyncDatas(DialogCtor, { ...this.context, params })
 
       Ctor = Vue.extend(merge({
         components: {
@@ -57,8 +66,6 @@ export default class Dialog {
 
     const container = options.container ? (findContainer(options.container)) : this.container
     container.appendChild(this.element)
-
-    this._vm.show()
     return this
   }
 

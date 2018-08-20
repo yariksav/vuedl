@@ -65,7 +65,7 @@ describe('manager', () => {
   test('Check layout', async () => {
     manager.layout('default', Layout)
     // manager
-    const cmp = Object.assign({layout: 'default'}, AsyncData)
+    const cmp = {layout: 'default', ...AsyncData}
     const dlg = await manager.show(cmp)
     console.log(dlg.element.innerHTML)
     // expect(dlg.show()).rejects.toThrowError('Error in asyncData')

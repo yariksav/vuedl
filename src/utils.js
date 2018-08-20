@@ -1,7 +1,13 @@
 /*
- * This code was imported from nuxt.js/lib/app/utils.js
+ * vuedl
  *
+ * (c) Savaryn Yaroslav <yariksav@gmail.com>
+ *
+ * Some functions was imported from nuxt.js/lib/app/utils.js
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
 */
+
 import Vue from 'vue'
 
 const noopData = () => ({})

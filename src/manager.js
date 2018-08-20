@@ -1,5 +1,5 @@
 /*
- * @vdialog/vdialog
+ * vuedl
  *
  * (c) Savaryn Yaroslav <yariksav@gmail.com>
  *
@@ -37,7 +37,6 @@ export default class DialogManager {
     this._context = context || {}
     Dialog.prototype.context = context || {}
     this._components = {}
-    this._overlay = new Overlay()
     this._layouts = {}
     this._overlays = {}
     this._container = container
@@ -75,14 +74,20 @@ export default class DialogManager {
     return this._components[name]
   }
 
-  register (name, component, options) {
-    if (this[name]) {
+  template (name, component, options = {}) {
+    if (this.hasOwnProperty(name)) {
       throw Error(`Name "${name}" is reserved in dialog`)
     }
-    this._components[name] = { component, options: options || {} }
+    if (component === undefined) {
+      return this._components[name]
+    }
+    this._components[name] = { component, options }
   }
 
   create (component) {
+    if (!component) {
+      throw new Error('Component was not found')
+    }
     const wrapper = component.layout && this._layouts[component.layout]
     return new Dialog(component, {
       wrapper,
@@ -93,19 +98,15 @@ export default class DialogManager {
 
   async show (component, options = {}) {
     const dlg = this.create(component)
+    const overlay = dlg.needOverlay ? (component.overlay || 'default') : false
 
-    if (!dlg.needOverlay) {
-      return dlg.show(options)
-    }
-
-    const overlay = component.overlay || 'default'
-    this.overlay(overlay).show()
+    overlay && this.overlay(overlay).show()
     try {
-      let ret = await dlg.show(options)
-      this.overlay(overlay).hide()
-      return ret
+      await dlg.show(options)
+      overlay && this.overlay(overlay).hide()
+      return options.waitForResult ? dlg.wait() : dlg
     } catch (e) {
-      this.overlay(overlay).hide()
+      overlay && this.overlay(overlay).hide()
       throw e
     }
   }
@@ -113,44 +114,12 @@ export default class DialogManager {
   createWrapper (name) {
     const cmp = this.getComponent(name)
     return (options) => {
-      return this.show(cmp.component, Object.assign({}, cmp.options || {}, options))
+      return this.show(cmp.component, { ...cmp.options, ...options })
     }
   }
 
   async showAndWait (component, props) {
     const dlg = await this.show(component, props)
     return dlg.wait()
-  }
-
-  confirm (message, title, { buttons, width = 400, type } = {}) {
-    if (!buttons) {
-      buttons = {
-        'false': 'Cancel',
-        'true': 'OK'
-      }
-    }
-    const cmp = this.getComponent('Confirm')
-
-    return this.showAndWait(cmp.component, {
-      title,
-      message,
-      buttons,
-      width,
-      type,
-      persistent: true
-    })
-  }
-
-  warning (title, message, { buttons } = {}) {
-    return this.confirm(title, message, { buttons, type: 'warning' })
-  }
-
-  error (message, { title, buttons, width } = {}) {
-    if (!buttons) {
-      buttons = [
-        'OK'
-      ]
-    }
-    return this.confirm(message, title, { buttons, width, type: 'error' })
   }
 }

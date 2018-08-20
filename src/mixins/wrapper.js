@@ -8,11 +8,11 @@ export default {
   },
   data () {
     return {
-      showed: false
+      isActive: false
     }
   },
   watch: {
-    showed (val) {
+    isActive (val) {
       if (!val) {
         setTimeout(() => {
           this.$destroy()
@@ -20,12 +20,15 @@ export default {
       }
     }
   },
+  mounted () {
+    this.show()
+  },
   methods: {
     show () {
-      this.showed = true
+      this.isActive = true
     },
     close () {
-      this.showed = false
+      this.isActive = false
     }
   }
 }
