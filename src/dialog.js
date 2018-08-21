@@ -19,6 +19,9 @@ import {
   findContainer
 } from './utils'
 
+import Debug from 'debug'
+const debug = Debug('vuedl:dialog')
+
 export default class Dialog {
   constructor (component, { wrapper, container } = {}) {
     if (!component) {
@@ -31,9 +34,11 @@ export default class Dialog {
     this._options = {}
     this._resolvers = []
     this.container = findContainer(container)
+    debug('created')
   }
 
   async show (params = {}, options = {}) {
+    debug('before show', params)
     let Ctor
     if (this._wrapper) {
       const DialogCtor = sanitizeComponent(merge({

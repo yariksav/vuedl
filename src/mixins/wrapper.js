@@ -1,3 +1,6 @@
+import Debug from 'debug'
+const debug = Debug('vuedl:wrapper')
+
 export default {
   props: {
     width: {
@@ -13,6 +16,7 @@ export default {
   },
   watch: {
     isActive (val) {
+      debug('isActive', val)
       if (!val) {
         setTimeout(() => {
           this.$destroy()
