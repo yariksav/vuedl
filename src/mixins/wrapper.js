@@ -7,7 +7,8 @@ export default {
       type: Number,
       default: 500
     },
-    waitBeforeDestroy: Number
+    waitBeforeDestroy: Number,
+    persistent: Boolean
   },
   data () {
     return {
@@ -33,6 +34,11 @@ export default {
     },
     close () {
       this.isActive = false
+    },
+    dismiss () {
+      if (!this.persistent) {
+        this.isActive = false
+      }
     }
   }
 }

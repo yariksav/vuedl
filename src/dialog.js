@@ -11,9 +11,9 @@ import Vue from 'vue'
 import DialogMixin from './mixins/dialog'
 import WrapperMixin from './mixins/wrapper'
 import merge from 'lodash/merge'
-
+import DefaultWrapper from './components/DefaultLayout.vue'
 import {
-  sanitizeComponent,
+  // sanitizeComponent,
   ensureAsyncDatas,
   destroyVueElement,
   findContainer
@@ -27,7 +27,7 @@ export default class Dialog {
     if (!component) {
       throw Error('Component was not sended')
     }
-    this._wrapper = wrapper
+    this._wrapper = wrapper || {component: DefaultWrapper, options: {}}
     this._component = component
     this._vm = null
     this._vmDialog = null
@@ -38,39 +38,33 @@ export default class Dialog {
   }
 
   async show (params = {}, options = {}) {
-    debug('before show', params)
-    let Ctor
-    if (this._wrapper) {
-      const DialogCtor = sanitizeComponent(merge({
-        mixins: [DialogMixin]
-      }, this._component))
+    debug('before show', { params, options, wrapper: !!this._wrapper })
 
-      await ensureAsyncDatas(DialogCtor, { ...this.context, params })
+    const DialogCtor = Vue.extend(merge({
+      mixins: [DialogMixin]
+    }, this._component))
 
-      Ctor = Vue.extend(merge({
-        components: {
-          'dialog-child': DialogCtor
-        },
-        mixins: [WrapperMixin],
-        destroyed: this.onDestroyed.bind(this)
-      }, this._wrapper))
-    } else {
-      Ctor = sanitizeComponent(merge({
-        mixins: [DialogMixin, WrapperMixin],
-        destroyed: this.onDestroyed.bind(this)
-      }, this._component))
+    let res = await ensureAsyncDatas(DialogCtor, { ...this.context, params })
+    debug('async datas', res)
 
-      await ensureAsyncDatas(Ctor, this.context)
-    }
+    const Wrapper = Vue.extend(merge({
+      mixins: [WrapperMixin],
+      destroyed: this.onDestroyed.bind(this)
+    }, this._wrapper.component))
 
-    this._vm = new Ctor(merge({ propsData: params }, this.context, options))
+    this._vm = new Wrapper(merge({ propsData: this._wrapper.options }, { propsData: params }, this.context, options))
+    this._vmDialog = new DialogCtor(merge({ propsData: params }, this.context, options))
+
+    this._vmDialog.$mount()
+    this._vm.$slots.default = this._vmDialog._vnode
     this._vm.$mount()
-    this._vmDialog = this._vm.$refs.dialog || this._vm
+
     this._vmDialog.$on('result', this.onResult.bind(this))
     this._vmDialog.$on('close', this.onClose.bind(this))
 
     const container = options.container ? (findContainer(options.container)) : this.container
     container.appendChild(this.element)
+    debug('append to', container.tagName)
     return this
   }
 
@@ -84,24 +78,28 @@ export default class Dialog {
   }
 
   remove () {
+    debug('remove')
     if (this.element && this.element.parentNode) {
       this.element.parentNode.removeChild(this.element)
     }
     destroyVueElement(this._vm)
     destroyVueElement(this._vmDialog)
-    if (this._resolvers.length) {
-      this._processResultPromises()
-    }
+    this._processResultPromises()
     this._vm = null
     this._vmDialog = null
   }
 
   _processResultPromises () {
+    if (!this._resolvers.length) {
+      return
+    }
+    debug('processResultPromises', this.result)
     this._resolvers.forEach(resolver => resolver(this.result))
     this._resolvers = []
   }
 
   onDestroyed () {
+    debug('onDestroyed')
     this.remove()
   }
 
@@ -110,6 +108,7 @@ export default class Dialog {
   }
 
   onClose (result) {
+    debug('onClose', result)
     if (result) {
       this.result = result
     }

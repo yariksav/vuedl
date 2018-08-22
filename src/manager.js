@@ -25,7 +25,7 @@ const proxyHandler = {
     }
 
     if (target._components[name]) {
-      return target.createWrapper(name)
+      return target.createFunctionWrapper(name)
     }
 
     return target[name]
@@ -47,11 +47,24 @@ export default class DialogManager {
     return this._context
   }
 
-  layout (name, component) {
-    if (component === undefined) {
-      return this._layouts[name]
+  layout (name, component, options = {}) {
+    this._layouts[name] = { component, options }
+  }
+
+  getLayout (layout) {
+    if (typeof layout === 'function') {
+      layout = layout()
     }
-    this._layouts[name] = component
+    if (Array.isArray(layout)) {
+      const nameTmp = layout[0]
+      const optionsTmp = layout[1] || {}
+      const instance = this._layouts[nameTmp]
+      return instance && {
+        component: instance.component,
+        options: { ...instance.options, ...optionsTmp }
+      }
+    }
+    return this._layouts[layout]
   }
 
   overlay (name, component) {
@@ -75,6 +88,10 @@ export default class DialogManager {
   }
 
   template (name, component, options = {}) {
+    return this.component(name, component, options)
+  }
+
+  component (name, component, options = {}) {
     if (this.hasOwnProperty(name)) {
       throw Error(`Name "${name}" is reserved in dialog`)
     }
@@ -86,11 +103,13 @@ export default class DialogManager {
 
   create (component) {
     if (!component) {
-      throw new Error('Component was not found')
+      throw new Error('Component is incorrect')
     }
-    const wrapper = component.layout && this._layouts[component.layout]
+
+    let wrapper = component.layout && this.getLayout(component.layout)
+    // const wrapper = component.layout && this._layouts[component.layout]
     return new Dialog(component, {
-      wrapper,
+      wrapper: wrapper,
       context: this._context,
       container: this._container
     })
@@ -111,7 +130,7 @@ export default class DialogManager {
     }
   }
 
-  createWrapper (name) {
+  createFunctionWrapper (name) {
     const cmp = this.getComponent(name)
     return (options) => {
       return this.show(cmp.component, { ...cmp.options, ...options })

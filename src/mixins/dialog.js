@@ -1,6 +1,6 @@
 export default {
   computed: {
-    $params () {
+    gueryParams () {
       return this.$options.propsData
     },
     primaryKey () {
@@ -10,7 +10,7 @@ export default {
       return true
     },
     isNewRecord: function () {
-      return (!this.primaryKey || !this.$params) || !this.$params[this.primaryKey]
+      return (!this.primaryKey || !this.gueryParams) || !this.gueryParams[this.primaryKey]
     }
   }
 }
