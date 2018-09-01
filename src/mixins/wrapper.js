@@ -1,36 +1,47 @@
+import Activable from './activable'
+
 import Debug from 'debug'
 const debug = Debug('vuedl:wrapper')
 
 export default {
+  name: 'Wrapper',
+
+  mixins: [ Activable ],
+
   props: {
     width: {
       type: Number,
       default: 500
     },
-    waitBeforeDestroy: Number,
     persistent: Boolean
   },
+
   data () {
     return {
       isActive: false
     }
   },
+
   watch: {
     isActive (val) {
       debug('isActive', val)
       if (!val) {
-        setTimeout(() => {
-          this.$destroy()
-        }, this.waitBeforeDestroy || 300)
+        window.removeEventListener('hashchange', this.remove)
+        this.remove()
       }
     }
   },
+
   mounted () {
-    this.show()
+    this.$nextTick(() => {
+      window.addEventListener('hashchange', this.remove)
+    })
+    this.isActive = true
   },
+
   methods: {
-    show () {
-      this.isActive = true
+    remove () {
+      this.$destroy(true)
     },
     close () {
       this.isActive = false
@@ -39,6 +50,13 @@ export default {
       if (!this.persistent) {
         this.isActive = false
       }
+    }
+  },
+  beforeDestroy () {
+    if (typeof (this.$el).remove !== 'undefined') {
+      this.$el.remove()
+    } else {
+      this.$el.parentNode.removeChild(this.$el)
     }
   }
 }

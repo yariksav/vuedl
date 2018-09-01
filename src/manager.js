@@ -55,10 +55,18 @@ export default class DialogManager {
     if (typeof layout === 'function') {
       layout = layout()
     }
+
+    if (typeof layout === 'object' && typeof layout.render === 'function') {
+      return { component: layout }
+    }
+
     if (Array.isArray(layout)) {
       const nameTmp = layout[0]
       const optionsTmp = layout[1] || {}
-      const instance = this._layouts[nameTmp]
+      const instance =
+        (typeof nameTmp === 'object' && typeof nameTmp.render === 'function')
+          ? { component: nameTmp }
+          : this._layouts[nameTmp]
       return instance && {
         component: instance.component,
         options: { ...instance.options, ...optionsTmp }
@@ -87,14 +95,7 @@ export default class DialogManager {
     return this._components[name]
   }
 
-  template (name, component, options = {}) {
-    return this.component(name, component, options)
-  }
-
   component (name, component, options = {}) {
-    if (this.hasOwnProperty(name)) {
-      throw Error(`Name "${name}" is reserved in dialog`)
-    }
     if (component === undefined) {
       return this._components[name]
     }
@@ -117,15 +118,16 @@ export default class DialogManager {
 
   async show (component, options = {}) {
     const dlg = this.create(component)
-    const overlay = dlg.needOverlay ? (component.overlay || 'default') : false
+    const overlayName = dlg.hasAsyncPreload ? (component.overlay || 'default') : false
+    const overlay = overlayName && this._overlays[overlayName] && this.overlay(overlayName)
 
-    overlay && this.overlay(overlay).show()
+    overlay && overlay.show()
     try {
       await dlg.show(options)
-      overlay && this.overlay(overlay).hide()
+      overlay && overlay.hide()
       return options.waitForResult ? dlg.wait() : dlg
     } catch (e) {
-      overlay && this.overlay(overlay).hide()
+      overlay && overlay.hide()
       throw e
     }
   }

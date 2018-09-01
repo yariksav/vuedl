@@ -45,7 +45,7 @@ const dialog = await this.$dialog.show(MyDialog, params, options)
 
 ### Register anduse global dialog
 
-Register global dialog template, which will be available in any vue module
+Register global dialog component, which will be available in any vue module
 ```javascript
 Vue.prototype.$dialog.register('myDialog', MyDialog)
 ```
@@ -82,13 +82,13 @@ Vue.prototype.$dialog.layout('default', MyLayout)
 Example of the layout template
 ```html
   <v-dialog v-model="isActive" :max-width="width">
-    <dialog-child v-bind="$options.propsData" ref="dialog"/>
+    <slot/>
   </v-dialog>
 ```
 **vuedl** module will put in layout component mixin with params:
 
 -- `width`: Number - max width of component
--- `showed`: Boolean - is dialog showed
+-- `isActive`: Boolean - is dialog active
 -- `show`: Function
 -- `close`: Function
 
@@ -203,12 +203,12 @@ this.$dialog.confirm('Please do not do this.<br>Do you really want to exit?'}).t
 
 For registering own Confirm template 
 ```javascript
-Vue.prototype.$dialog.register('Confirm', MyConfirmDialog)
+Vue.prototype.$dialog.component('Confirm', MyConfirmDialog)
 ```
 
 For registering own Prompt template 
 ```javascript
-Vue.prototype.$dialog.register('Prompt', MyPromptDialog)
+Vue.prototype.$dialog.component('Prompt', MyPromptDialog)
 ```
 
 

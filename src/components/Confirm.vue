@@ -6,20 +6,21 @@
     <div class="confirm-message" v-html="message" />
     <div class="confirm-buttons">
       <div class="column">
-        <button v-for="button in parsedButtons" :key="button.key"
+        <button v-for="action in actionsArray" :key="action.key"
           class="button is-large is-is-default is-fullwidth"
-          @click="onButtonClick(button)"
-          v-html="button.text" />
+          :class="['button-key-' + action.key]"
+          @click="onActionClick(action)"
+          v-html="action.text" />
       </div>
     </div>
   </div>
 </template>
 <script>
 
-import ConfirmMixin from '../mixins/confirm'
+import Confirmable from '../mixins/confirmable'
 export default {
   layout: 'default',
-  mixins: [ConfirmMixin]
+  mixins: [ Confirmable ]
 }
 
 </script>

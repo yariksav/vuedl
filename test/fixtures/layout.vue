@@ -1,15 +1,15 @@
 <template>
   <div>
-    <!-- Layout {{ name }} -->
-    <p>Layout</p>
-    <dialog-child/>
+    <span id="title">Layout {{ prop1 }} {{ prop2 }}</span>
+    <slot/>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    option1: String
+    prop1: String,
+    prop2: String
   }
 }
 </script>

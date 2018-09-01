@@ -16,6 +16,7 @@ describe('dialog', () => {
 
   test('Check self asyncData and fetch', async () => {
     // const context = {store: 'ctx'}
+
     const fetchFn = jest.fn(() => {
       return new Promise(resolve => {
         setTimeout(() => resolve('fetched'), 10)
@@ -28,18 +29,18 @@ describe('dialog', () => {
       })
     })
 
-    const cmp = {
+    const component = {
       fetch: fetchFn,
       asyncData: asyncDataFn,
       ...FooBar
     }
 
-    const dlg = new Dialog(cmp)
+    const dlg = new Dialog(component)
     await dlg.show()
 
-    dlg.wait().then(res => {
-      console.log(res, 'res')
-    })
+    // dlg.wait().then(res => {
+    //   console.log(res, 'res')
+    // })
     expect(fetchFn).toHaveBeenCalledTimes(1)
     expect(asyncDataFn).toHaveBeenCalledTimes(1)
     expect(dlg.vm.$data).toMatchObject({foo: 'asyncData'})
@@ -47,6 +48,14 @@ describe('dialog', () => {
   })
 
   test('Check asyncData', async () => {
+    const dlg = new Dialog(AsyncData)
+    await dlg.show()
+    expect(dlg.vm.$data).toHaveProperty('name', 'Async data')
+    expect(dlg.element.innerHTML).toBe('Async data')
+    dlg.close()
+  })
+
+  test('Check return', async () => {
     const dlg = new Dialog(AsyncData)
     await dlg.show()
     expect(dlg.vm.$data).toHaveProperty('name', 'Async data')
@@ -83,8 +92,6 @@ describe('dialog', () => {
     const fn = ManyTimesUsage.asyncData = jest.fn(ManyTimesUsage.asyncData)
     const fnData = ManyTimesUsage.data = jest.fn(ManyTimesUsage.data)
     const dlg = new Dialog(ManyTimesUsage)
-    // const fn = dlg._component.options.asyncData = jest.fn(dlg._component.options.asyncData)
-    // const fnData = dlg._component.options.data = jest.fn(dlg._component.options.data)
     await dlg.show()
     dlg.wait().then(fnWait)
     expect(fn).toHaveBeenCalledTimes(1)
@@ -117,15 +124,8 @@ describe('dialog', () => {
   test('Check props and is New', async () => {
     const dlg = new Dialog(AsyncData)
     await dlg.show({id: 123})
-    expect(dlg.vm.arguments).toHaveProperty('id', 123)
+    expect(dlg.vm.$parameters).toHaveProperty('id', 123)
     expect(dlg.vm).toHaveProperty('isNewRecord', false)
     dlg.close()
   })
-
-  // test('Check layout', async () => {
-  //   const dlg = new Dialog(AsyncDataError)
-  //   expect(dlg.show()).rejects.toThrowError('Error in asyncData')
-  //   expect(dlg.element).toBe(null)
-  //   expect(dlg.vm).toBe(null)
-  // })
 })

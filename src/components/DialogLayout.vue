@@ -1,6 +1,6 @@
 <template>
   <transition name="vdialog-modal">
-    <div class="vdialog-modal-mask" @click.self.prevent.stop="onMaskClick">
+    <div class="vdialog-modal-mask" @click.self.prevent.stop="dismiss">
         <div class="vdialog-modal-container" :style="{ 'max-width': (width || 500) +'px' }">
           <dialog-child v-bind="$options.propsData"/>
         </div>
@@ -14,13 +14,6 @@ export default {
   props: {
     width: Number,
     persistent: Boolean
-  },
-  methods: {
-    onMaskClick () {
-      if (!this.persistent) {
-        this.$destroy()
-      }
-    }
   }
 }
 </script>

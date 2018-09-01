@@ -1,13 +1,10 @@
 export default {
-  functional: true,
+  // functional: true,
   props: {
-    items: {
-      type: Array,
-      required: true
-    },
-    isOrdered: Boolean
+    wrappers: Array,
+    component: Object
   },
-  render: function (createElement, context) {
+  render (createElement, context) {
     console.log(createElement, context)
     // function appropriateListComponent () {
     //   var items = context.props.items
@@ -19,10 +16,10 @@ export default {
     //   return UnorderedList
     // }
 
-    return createElement(
-      'div',
-      context.data,
-      context.children
-    )
+    // return createElement(
+    //   'div',
+    //   context.data,
+    //   context.children
+    // )
   }
 }

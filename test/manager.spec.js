@@ -1,9 +1,9 @@
 import DialogManager from '../src/manager'
 import Vue from 'vue'
-import FooBarComponent from './fixtures/foobar'
+import FooBar from './fixtures/foobar'
 import AsyncData from './fixtures/async-data'
 import Layout from './fixtures/layout'
-import { wrap } from './utils'
+import { wrap, sleep } from './utils'
 import Plugin from '../src'
 
 describe('manager', () => {
@@ -14,39 +14,28 @@ describe('manager', () => {
   let manager
 
   test('Create manager instance', () => {
-    manager = new DialogManager({vue: Vue, context: {store: {}}})
+    manager = new DialogManager({ context: {store: {}} })
     expect(manager).toBeInstanceOf(DialogManager)
-  })
-
-  test('Check throws when register with reserved names', () => {
-    expect(manager).toBeInstanceOf(DialogManager)
-    expect(() => {
-      manager.register('register', FooBarComponent)
-    }).toThrowError('Name "register" is reserved in dialog')
   })
 
   test('Check register component', () => {
-    manager.register('foobar', FooBarComponent)
+    manager.component('foobar', FooBar)
     expect(manager._components).toHaveProperty('foobar')
   })
 
-  // test('Check register without name', () => {
-  //   manager.register(AsyncData)
-  //   expect(manager._components).toHaveProperty('foobar')
-  // })
-
   test('Check creating component by getters', async () => {
-    const foobar = await manager.show(FooBarComponent, {
+    const foobar = await manager.show(FooBar, {
       name: 'Bar'
     })
     const html = window.document.body.innerHTML
     expect(html.includes('<p>Foo Bar</p>')).toBe(true)
     foobar.close()
+    await sleep(1)
     expect(document.body.innerHTML).toBe('')
   })
 
   test('Check asyncData', async () => {
-    manager.register('AsyncData', AsyncData)
+    manager.component('AsyncData', AsyncData)
     const dlg = await manager.AsyncData()
     expect(dlg.showed).toBe(true)
     const wrapper = wrap(dlg.vm)
@@ -59,17 +48,64 @@ describe('manager', () => {
     expect(dlg.remove).toHaveBeenCalledTimes(1)
 
     expect(dlg.showed).toBe(false)
+    await sleep(1)
     expect(document.body.innerHTML).toBe('')
   })
 
   test('Check layout', async () => {
-    manager.layout('default', Layout)
-    // manager
-    const cmp = {layout: 'default', ...AsyncData}
-    const dlg = await manager.show(cmp)
-    console.log(dlg.element.innerHTML)
-    // expect(dlg.show()).rejects.toThrowError('Error in asyncData')
-    // expect(dlg.element).toBe(null)
-    // expect(dlg.vm).toBe(null)
+    manager.layout('default', Layout, { prop1: 'Overrided', prop2: 'Bar' })
+    const cmp = { layout: 'default', ...AsyncData }
+    const dlg = await manager.show(cmp, { prop1: 'Foo' })
+    const wrapper = wrap(dlg.vm)
+    expect(wrapper.find('#title').exists()).toBe(true)
+    expect(wrapper.find('#title').text()).toBe('Layout Foo Bar')
+    expect(wrapper.find('p').text()).toBe('Async data')
+    dlg.close()
   })
+
+  test('Check layout in array', async () => {
+    manager.layout('default', Layout)
+    const cmp = { layout: ['default', { prop1: 'Overrided', prop2: 'Bar' }], ...AsyncData }
+    const dlg = await manager.show(cmp, { prop1: 'Foo' })
+    const wrapper = wrap(dlg.vm)
+    expect(wrapper.find('#title').text()).toBe('Layout Foo Bar')
+    expect(wrapper.find('p').text()).toBe('Async data')
+    dlg.close()
+  })
+
+  test('Check layout component', async () => {
+    const cmp = { layout: Layout, ...AsyncData }
+    const dlg = await manager.show(cmp, { prop1: 'Foo', prop2: 'Bar' })
+    const wrapper = wrap(dlg.vm)
+    expect(wrapper.find('#title').text()).toBe('Layout Foo Bar')
+    expect(wrapper.find('p').text()).toBe('Async data')
+    dlg.close()
+  })
+
+  test('Check layout component in array', async () => {
+    const cmp = {
+      layout: [Layout, { prop1: 'Overrided', prop2: 'Bar' }],
+      ...AsyncData
+    }
+    const dlg = await manager.show(cmp, { prop1: 'Foo' })
+    const wrapper = wrap(dlg.vm)
+    expect(wrapper.find('#title').text()).toBe('Layout Foo Bar')
+    expect(wrapper.find('p').text()).toBe('Async data')
+    dlg.close()
+  })
+
+  // test('On hashchange', async () => {
+  //   const foobar = await manager.show(FooBar, {
+  //     name: 'Bar'
+  //   })
+  //   const html = window.document.body.innerHTML
+  //   expect(html.includes('<p>Foo Bar</p>')).toBe(true)
+  //   // foobar.close()
+  //   // history.pushState({}, 'page 2', '/bar.html')
+  //   // global.jsdom.changeUrl(window, 'test123')
+  //   // window.location.href = 'test123'
+  //   await sleep(1000)
+  //   expect(document.body.innerHTML).toBe('')
+  //   console.log(foobar, 'foobar')
+  // })
 })

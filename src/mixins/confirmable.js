@@ -1,7 +1,10 @@
-import ButtonsMixin from './buttons'
+import Actionable from './actionable'
 
 export default {
-  mixins: [ButtonsMixin],
+  name: 'Confirmable',
+
+  mixins: [ Actionable ],
+
   props: {
     type: {
       type: String

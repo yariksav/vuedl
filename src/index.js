@@ -29,27 +29,27 @@ const Plugin = {
     manager.layout('default', DialogLayout)
     manager.overlay('default', DialogOverlay)
 
-    manager.template('confirm', Confirm, {
+    manager.component('confirm', Confirm, {
       waitForResult: true,
-      buttons: {
+      actions: {
         'false': 'Cancel',
         'true': 'OK'
       }
     })
 
-    manager.template('warning', Confirm, {
+    manager.component('warning', Confirm, {
       type: 'warning',
       waitForResult: true,
-      buttons: {
+      actions: {
         'false': 'Cancel',
         'true': 'OK'
       }
     })
 
-    manager.template('error', Confirm, {
+    manager.component('error', Confirm, {
       type: 'error',
       waitForResult: true,
-      buttons: [
+      actions: [
         'OK'
       ]
     })

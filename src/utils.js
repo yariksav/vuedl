@@ -37,6 +37,7 @@ export function promisify (fn, context) {
 export function destroyVueElement (vm) {
   if (vm && vm._isMounted && !vm._isDestroyed &&
     (typeof vm.$destroy === 'function')) {
+    console.log('destroy in utils')
     vm.$destroy()
   }
 }
@@ -44,14 +45,7 @@ export function destroyVueElement (vm) {
 export function findContainer (container) {
   let found
   if (typeof container === 'string') {
-    if (container[0] === '#') {
-      found = document.getElementById(container.slice(1))
-    } else if (container[0] === '.') {
-      let res = document.getElementsByClassName(container)
-      if (Array.isArray(res) && container.length) {
-        found = res[0]
-      }
-    }
+    found = document.querySelector(container)
   } else {
     found = container
   }
