@@ -1,5 +1,5 @@
-import Plugin from '../src'
-import DialogManager from '../src/manager'
+import Plugin from '../../src'
+import DialogManager from '../../src/manager'
 import Vue from 'vue'
 
 describe('plugin', () => {

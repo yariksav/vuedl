@@ -1,5 +1,5 @@
 <template>
-  <div class="vuedl-wrapper">
+  <div class="dialog-layout">
     <slot/>
   </div>
 </template>

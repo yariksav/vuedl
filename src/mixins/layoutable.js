@@ -1,10 +1,10 @@
 import Activable from './activable'
 
-import Debug from 'debug'
-const debug = Debug('vuedl:wrapper')
+// import Debug from 'debug'
+// const debug = Debug('vuedl:wrapper')
 
 export default {
-  name: 'Wrapper',
+  name: 'Layoutable',
 
   mixins: [ Activable ],
 
@@ -16,18 +16,18 @@ export default {
     persistent: Boolean
   },
 
-  data () {
+  provide () {
     return {
-      isActive: false
+      layout: this.$data
     }
   },
 
   watch: {
     isActive (val) {
-      debug('isActive', val)
+      // console.log('layout.isActive', val)
       if (!val) {
         window.removeEventListener('hashchange', this.remove)
-        this.remove()
+        this._destroy()
       }
     }
   },
@@ -40,8 +40,8 @@ export default {
   },
 
   methods: {
-    remove () {
-      this.$destroy(true)
+    _destroy () {
+      this.$destroy()
     },
     close () {
       this.isActive = false
@@ -52,6 +52,7 @@ export default {
       }
     }
   },
+
   beforeDestroy () {
     if (typeof (this.$el).remove !== 'undefined') {
       this.$el.remove()

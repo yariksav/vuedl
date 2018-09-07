@@ -53,7 +53,7 @@ export default class DialogManager {
 
   getLayout (layout) {
     if (typeof layout === 'function') {
-      layout = layout()
+      layout = layout(this)
     }
 
     if (typeof layout === 'object' && typeof layout.render === 'function') {
@@ -107,10 +107,9 @@ export default class DialogManager {
       throw new Error('Component is incorrect')
     }
 
-    let wrapper = component.layout && this.getLayout(component.layout)
-    // const wrapper = component.layout && this._layouts[component.layout]
+    let layout = component.layout && this.getLayout(component.layout)
     return new Dialog(component, {
-      wrapper: wrapper,
+      layout,
       context: this._context,
       container: this._container
     })

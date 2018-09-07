@@ -11,7 +11,6 @@ import DialogManager from './manager'
 import DialogLayout from './components/DialogLayout.vue'
 import DialogOverlay from './components/DialogOverlay.vue'
 import Confirm from './components/Confirm.vue'
-import viedlComponent from './components/vuedl'
 
 const Plugin = {
   install (Vue, options = {}) {
@@ -23,8 +22,6 @@ const Plugin = {
         return manager
       }
     })
-
-    Vue.component('vuedl', viedlComponent)
 
     manager.layout('default', DialogLayout)
     manager.overlay('default', DialogOverlay)

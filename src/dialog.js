@@ -9,9 +9,10 @@
 
 import Vue from 'vue'
 import DialogMixin from './mixins/recordable'
-import WrapperMixin from './mixins/wrapper'
+import Layoutable from './mixins/layoutable'
+
 import merge from 'lodash/merge'
-// import DefaultWrapper from './components/DefaultLayout.vue'
+import DefaultLayout from './components/DefaultLayout.vue'
 import {
   ensureAsyncDatas,
   destroyVueElement,
@@ -22,11 +23,11 @@ import Debug from 'debug'
 const debug = Debug('vuedl:dialog')
 
 export default class Dialog {
-  constructor (component, { wrapper, container } = {}) {
+  constructor (component, { layout, container } = {}) {
     if (!component) {
       throw Error('Component was not sended')
     }
-    this._wrapper = wrapper // || {component: DefaultWrapper, options: {}}
+    this._layout = layout || {component: DefaultLayout, options: {}}
     this._component = component
     this._vm = null
     this._vmDialog = null
@@ -40,38 +41,34 @@ export default class Dialog {
     debug('before show', { params, options })
 
     const DialogCtor = Vue.extend(merge({
-      mixins: this._wrapper ? [ DialogMixin ] : [ DialogMixin, WrapperMixin ],
-      destroyed: !this._wrapper && this._onDestroyed.bind(this)
+      // inject: ['isActive'],
+      mixins: [ DialogMixin ]
     }, this._component))
 
     if (this.hasAsyncPreload) {
       let res = await ensureAsyncDatas(DialogCtor, { ...this.context, params })
       debug('async datas', res)
     }
+
     this._vmDialog = new DialogCtor(merge({ propsData: params }, this.context, options))
     this._vmDialog.$mount()
 
-    if (this._wrapper) {
-      const wrapperComponent = this._wrapper.component
-      const Wrapper = Vue.extend(merge({
-        mixins: [ WrapperMixin ],
-        destroyed: this._onDestroyed.bind(this)
-      }, wrapperComponent))
+    const wrapperComponent = this._layout.component
+    const LayoutCtor = Vue.extend(merge({
+      // provide: ['isActive'],
+      mixins: [ Layoutable ],
+      destroyed: this._onDestroyed.bind(this)
+    }, wrapperComponent))
 
-      // get propsData for wrapper
-      const propsData = { ...this._wrapper.options, ...params }
-      this._vm = new Wrapper(merge({ propsData }, this.context, options))
+    // get propsData for wrapper
+    const propsData = { ...this._layout.options, ...params }
+    this._vm = new LayoutCtor(merge({ propsData }, this.context, options))
 
-      this._vm.$slots.default = this._vmDialog._vnode
-      this._vmDialog.$parent = this._vm
-      this._vm.$mount()
-    } else {
-      this._vm = this._vmDialog
-    }
-
+    this._vm.$slots.default = this._vmDialog._vnode
+    this._vmDialog.$parent = this._vm
+    // this._vmDialog. = this._vm
+    this._vm.$mount()
     this._vmDialog.$on('update:returnValue', this.onReturn.bind(this))
-    // this._vmDialog.$on('return', this.onReturn.bind(this))
-    // this._vmDialog.$on('close', this.onClose.bind(this))
 
     this.container = options.container ? (findContainer(options.container)) : this.container
     this.container.appendChild(this.element)
@@ -93,36 +90,30 @@ export default class Dialog {
 
   remove () {
     debug('remove')
+    // console.log('remove', this.element.innerHTML)
+
+    // this.element.parentNode.removeChild(this.element)
     this._processResultPromises()
     destroyVueElement(this._vm)
     destroyVueElement(this._vmDialog)
-    this._vm = null
-    this._vmDialog = null
+    // this._vm = null
+    // this._vmDialog = null
   }
 
-  _processResultPromises () {
+  _processResultPromises (result) {
     if (!this._resolvers.length) {
       return
     }
-    debug('processResultPromises', this.result)
-    this._resolvers.forEach(resolver => resolver(this.result))
+    debug('processResultPromises', result)
+    this._resolvers.forEach(resolver => resolver(result))
     this._resolvers = []
   }
 
   onReturn (result) {
     console.log('onReturn', result)
     debug('onReturn', result)
-    this._resolvers.forEach(resolver => resolver(result))
-    this._resolvers = []
-  }
-
-  onClose (result) {
-    debug('onClose', result)
-    if (result) {
-      this.result = result
-    }
-    this._processResultPromises()
-    // this._vm.close()
+    this._processResultPromises(result)
+    this.close()
   }
 
   get showed () {
@@ -139,6 +130,10 @@ export default class Dialog {
 
   get vm () {
     return this._vm
+  }
+
+  get vmd () {
+    return this._vmDialog
   }
 
   close () {

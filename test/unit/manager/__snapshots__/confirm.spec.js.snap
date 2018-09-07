@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`manager Check confirm 1`] = `
+<div
+  class="dialog-layout"
+>
+  <div
+    class="confirm-box"
+  >
+    <!---->
+     
+    <div
+      class="confirm-message"
+    />
+     
+    <div
+      class="confirm-buttons"
+    >
+      <div
+        class="column"
+      >
+        <button
+          action-key="ok"
+          class="button"
+        >
+          ok
+        </button>
+        <button
+          action-key="cancel"
+          class="button"
+        >
+          cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`manager Check confirm with btns true|false 1`] = `
+<div
+  class="dialog-layout"
+>
+  <div
+    class="confirm-box"
+  >
+    <!---->
+     
+    <div
+      class="confirm-message"
+    />
+     
+    <div
+      class="confirm-buttons"
+    >
+      <div
+        class="column"
+      >
+        <button
+          action-key="true"
+          class="button"
+        >
+          Yes
+        </button>
+        <button
+          class="button"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`manager returnable 1`] = `
+<div
+  class="dialog-layout"
+>
+  <p />
+</div>
+`;

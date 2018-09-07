@@ -1,8 +1,4 @@
-import Activable from './activable'
-
 export default {
-  mixins: [ Activable ],
-
   computed: {
     $parameters  () {
       return this.$options.propsData

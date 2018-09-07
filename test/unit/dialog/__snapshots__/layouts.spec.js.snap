@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dialog layouts Check layout 1`] = `
+<div>
+  <p>
+    foo
+  </p>
+</div>
+`;
+
+exports[`dialog layouts Check layout object 1`] = `
+<div
+  class="dialog-layout"
+>
+  <p>
+    foo
+  </p>
+</div>
+`;

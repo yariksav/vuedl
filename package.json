@@ -10,7 +10,10 @@
     "lint": "eslint --ext js --ext vue src",
     "lint:fix": "npm run lint -- --fix",
     "prepublish": "npm run build",
-    "test": "jest --env=jsdom"
+    "release": "bash build/release.sh",
+    "test": "jest --env=jsdom ",
+    "coveralls": "jest --env=jsdom --coverage --coverageReporters=text-lcov | coveralls",
+    "test1": "node_modules/.bin/jest --env=jsdom --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "main": "dist/vuedl.cjs.js",
   "module": "dist/vuedl.esm.js",
@@ -41,6 +44,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "bili": "^3.1.2",
+    "coveralls": "^3.0.2",
     "debug": "^3.1.0",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^11.0.0",
@@ -65,6 +69,9 @@
       "json",
       "vue"
     ],
+    "moduleNameMapper": {
+      "^vue$": "vue/dist/vue.common.js"
+    },
     "transform": {
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"

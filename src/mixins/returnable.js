@@ -6,29 +6,35 @@ export default {
     returnValue: null
   },
 
-  data: () => ({
-    originalValue: null,
-    returnResovers: []
-  }),
+  // inject: ['layout'],
 
-  watch: {
-    isActive (val) {
-      console.log('isActive', val)
-      if (val) {
-        this.originalValue = this.returnValue
-      } else {
-        console.log('emit', this.originalValue)
-        this.$emit('return', this.originalValue)
-        this.$emit('update:returnValue', this.originalValue)
-      }
+  data () {
+    return {
+      originalValue: this.returnValue,
+      returnResovers: []
     }
   },
 
+  // watch: {
+  //   'wrapper.isActive' (val) {
+  //     console.log('watch.isActive', val)
+  //     if (val) {
+  //       this.originalValue = this.returnValue
+  //     } else {
+  //       // console.log('emit', this.originalValue)
+  //       // this.$emit('return', this.originalValue)
+  //       this.$emit('update:returnValue', this.originalValue)
+  //     }
+  //   }
+  // },
+
   methods: {
     return (value) {
-      console.log('return', value, this.isActive)
       this.originalValue = value
-      this.isActive = false
+      // console.log('return.layout', this.layout)
+      this.$emit('update:returnValue', this.originalValue)
+      // this.layout.isActive = false
+      // this.$set(this, 'isActive', false)
     }
   }
 }
