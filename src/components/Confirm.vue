@@ -6,11 +6,12 @@
     <div class="confirm-message" v-html="message" />
     <div class="confirm-buttons">
       <div class="column">
-        <button v-for="action in actionsArray" :key="action.key"
+        <button v-for="action in actionlist" :key="action.key"
           class="button"
           :action-key="action.key"
-          @click="onActionClick(action)"
-          v-html="action.text" />
+          @click="onActionClick(action)">
+          {{ action.text }}
+        </button>
       </div>
     </div>
   </div>

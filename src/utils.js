@@ -36,7 +36,6 @@ export function promisify (fn, context) {
 
 export function destroyVueElement (vm) {
   if (vm && !vm._isDestroyed && (typeof vm.$destroy === 'function')) {
-    console.log('destroy in utils')
     vm.$destroy()
   }
 }

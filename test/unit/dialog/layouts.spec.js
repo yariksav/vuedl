@@ -1,11 +1,11 @@
 import Dialog from '../../../src/dialog'
-import Vue from 'vue'
-import DialogView from '../../../src/components/view'
+// import Vue from 'vue'
+// import DialogView from '../../../src/components/view'
 // import { mount } from '../../utils'
 
 describe('dialog layouts', () => {
   beforeAll(() => {
-    Vue.component('dialog-view', DialogView)
+    // Vue.component('dialog-view', DialogView)
     // Dialog.prototype.context = context
   })
 
@@ -21,6 +21,12 @@ describe('dialog layouts', () => {
   //   // expect(dlg.innerHTML).toBe('<p>foo</p>')
   //   // dialog.close()
   // })
+
+  test('check error without component', () => {
+    expect(() => {
+      new Dialog() // eslint-disable-line no-new
+    }).toThrow()
+  })
 
   test('Check layout', async () => {
     const layout = {

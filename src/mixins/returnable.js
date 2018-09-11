@@ -6,8 +6,6 @@ export default {
     returnValue: null
   },
 
-  // inject: ['layout'],
-
   data () {
     return {
       originalValue: this.returnValue,
@@ -22,7 +20,7 @@ export default {
   //       this.originalValue = this.returnValue
   //     } else {
   //       // console.log('emit', this.originalValue)
-  //       // this.$emit('return', this.originalValue)
+  //       // this.$emit('submit', this.originalValue)
   //       this.$emit('update:returnValue', this.originalValue)
   //     }
   //   }
@@ -31,10 +29,8 @@ export default {
   methods: {
     return (value) {
       this.originalValue = value
-      // console.log('return.layout', this.layout)
-      this.$emit('update:returnValue', this.originalValue)
-      // this.layout.isActive = false
-      // this.$set(this, 'isActive', false)
+      this.$root.$emit('submit', this.originalValue)
+      this.$emit('submit', this.originalValue)
     }
   }
 }

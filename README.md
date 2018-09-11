@@ -66,9 +66,7 @@ const result = dialog.wait()
 `result` will be object of user inputs, or clicked button, depending on what will be sent in dialog component by the:
 
 ```js
-this.$emit('close', inputs)
-// or
-this.$emit('result', inputs)
+this.$emit('submit', inputs)
 ```
 
 ## The layout param

@@ -3,11 +3,8 @@ export default {
     $parameters  () {
       return this.$options.propsData
     },
-    primaryKey () {
-      return 'id'
-    },
     isNewRecord: function () {
-      return (!this.primaryKey || !this.$parameters) || !this.$parameters[this.primaryKey]
+      return (!this.$options.primaryKey || !this.$options.propsData) || !this.$options.propsData[this.$options.primaryKey]
     }
   }
 }

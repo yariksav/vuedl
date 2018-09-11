@@ -1,9 +1,5 @@
-import Actionable from './actionable'
-
 export default {
   name: 'Confirmable',
-
-  mixins: [ Actionable ],
 
   props: {
     type: {
@@ -15,6 +11,9 @@ export default {
     },
     title: {
       type: String
+    },
+    actions: {
+      type: [Array, Object]
     }
   }
 }

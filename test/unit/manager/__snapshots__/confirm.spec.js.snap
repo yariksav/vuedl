@@ -23,13 +23,17 @@ exports[`manager Check confirm 1`] = `
           action-key="ok"
           class="button"
         >
-          ok
+          
+        ok
+      
         </button>
         <button
           action-key="cancel"
           class="button"
         >
-          cancel
+          
+        cancel
+      
         </button>
       </div>
     </div>
@@ -60,12 +64,16 @@ exports[`manager Check confirm with btns true|false 1`] = `
           action-key="true"
           class="button"
         >
-          Yes
+          
+        Yes
+      
         </button>
         <button
           class="button"
         >
-          No
+          
+        No
+      
         </button>
       </div>
     </div>
