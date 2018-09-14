@@ -19,22 +19,24 @@ exports[`manager Check confirm 1`] = `
       <div
         class="column"
       >
-        <button
-          action-key="ok"
-          class="button"
-        >
-          
-        ok
-      
-        </button>
-        <button
-          action-key="cancel"
-          class="button"
-        >
-          
-        cancel
-      
-        </button>
+        <span>
+          <button
+            action-key="ok"
+            class="button"
+          >
+            
+    ok
+  
+          </button>
+          <button
+            action-key="cancel"
+            class="button"
+          >
+            
+    cancel
+  
+          </button>
+        </span>
       </div>
     </div>
   </div>
@@ -60,21 +62,112 @@ exports[`manager Check confirm with btns true|false 1`] = `
       <div
         class="column"
       >
-        <button
-          action-key="true"
-          class="button"
-        >
-          
-        Yes
-      
-        </button>
-        <button
-          class="button"
-        >
-          
-        No
-      
-        </button>
+        <span>
+          <button
+            action-key="true"
+            class="button"
+          >
+            
+    Yes
+  
+          </button>
+          <button
+            action-key="false"
+            class="button"
+          >
+            
+    No
+  
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`manager Check confirm with handle functions 1`] = `
+<div
+  class="dialog-layout"
+>
+  <div
+    class="confirm-box"
+  >
+    <!---->
+     
+    <div
+      class="confirm-message"
+    />
+     
+    <div
+      class="confirm-buttons"
+    >
+      <div
+        class="column"
+      >
+        <span>
+          <button
+            action-key="false"
+            class="button"
+          >
+            
+    No
+  
+          </button>
+          <button
+            action-key="true"
+            class="button"
+          >
+            
+    Yes
+  
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`manager Check confirm with handle functions 2`] = `
+<div
+  class="dialog-layout"
+>
+  <div
+    class="confirm-box"
+  >
+    <!---->
+     
+    <div
+      class="confirm-message"
+    />
+     
+    <div
+      class="confirm-buttons"
+    >
+      <div
+        class="column"
+      >
+        <span>
+          <button
+            action-key="false"
+            class="button"
+            disabled="disabled"
+          >
+            
+    No
+  
+          </button>
+          <button
+            action-key="true"
+            class="button loading"
+            disabled="disabled"
+          >
+            
+    Yes
+  
+          </button>
+        </span>
       </div>
     </div>
   </div>

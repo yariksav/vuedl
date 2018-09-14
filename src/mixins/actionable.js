@@ -51,6 +51,15 @@ export default {
       this.setLoadingToInstance(this.$root, value)
       this.setLoadingToInstance(this.$root._dialogInstance, value)
     },
+    isActionDisabled (action) {
+      if (!action.disabled) {
+        return false
+      }
+      if (typeof action.disabled === 'function') {
+        return action.disabled()
+      }
+      return action.disabled
+    },
     async onActionClick (action) {
       if (action.handle) {
         this.loadingAction = action.key

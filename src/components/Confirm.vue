@@ -6,12 +6,7 @@
     <div class="confirm-message" v-html="message" />
     <div class="confirm-buttons">
       <div class="column">
-        <button v-for="action in actionlist" :key="action.key"
-          class="button"
-          :action-key="action.key"
-          @click="onActionClick(action)">
-          {{ action.text }}
-        </button>
+        <DialogActions :actions="actions"/>
       </div>
     </div>
   </div>
@@ -19,7 +14,12 @@
 <script>
 
 import Confirmable from '../mixins/confirmable'
+import DialogActions from './DialogActions.vue'
+
 export default {
+  components: {
+    DialogActions
+  },
   layout: 'default',
   mixins: [ Confirmable ]
 }

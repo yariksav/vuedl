@@ -31,7 +31,10 @@ describe('manager', () => {
   })
 
   test('Check confirm', async () => {
-    let dlg = await manager.confirm({ text: 'test', actions: ['ok', 'cancel'] })
+    let dlg = await manager.confirm({
+      text: 'test',
+      actions: ['ok', 'cancel']
+    })
     const wrapper = wrap(dlg.vm)
     expect(dlg.vm.$el).toMatchSnapshot()
     setTimeout(() => {
@@ -44,15 +47,49 @@ describe('manager', () => {
   })
 
   test('Check confirm with btns true|false', async () => {
-    let dlg = await manager.confirm({ text: 'test', actions: {'true': 'Yes', 'false': 'No'} })
+    let dlg = await manager.confirm({
+      text: 'test',
+      actions: {'true': 'Yes', false: 'No'}
+    })
     const wrapper = wrap(dlg.vm)
     expect(dlg.element).toMatchSnapshot()
     expect(wrapper.find('[action-key=true]').exists()).toBe(true)
+    expect(wrapper.find('[action-key=false]').exists()).toBe(true)
     setTimeout(() => {
       wrapper.find('[action-key=true]').trigger('click')
     }, 10)
     let res = await dlg.wait()
     expect(res).toBe(true)
+    await Vue.nextTick()
+    expect(document.body.innerHTML).toBe('')
+  })
+
+  test('Check confirm with handle functions', async () => {
+    let dlg = await manager.confirm({
+      text: 'test',
+      actions: {
+        false: 'No',
+        true: {
+          text: 'Yes',
+          handle: () => {
+            return new Promise((resolve) => {
+              setTimeout(() => resolve({ msg: 'foo' }), 10)
+            })
+          }
+        }
+      }
+    })
+    const wrapper = wrap(dlg.vm)
+    expect(dlg.element).toMatchSnapshot()
+    setTimeout(() => {
+      wrapper.find('[action-key=true]').trigger('click')
+      Vue.nextTick(() => {
+        expect(wrapper.find('[action-key=true]').element.hasAttribute('disabled')).toBe(true)
+        expect(dlg.element).toMatchSnapshot()
+      })
+    }, 5)
+    let res = await dlg.wait()
+    expect(res).toEqual({msg: 'foo'})
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })
