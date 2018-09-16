@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
 */
 
+import Vue from 'vue'
 import Dialog from './dialog'
 import Overlay from './overlay'
 
@@ -40,6 +41,7 @@ export default class DialogManager {
     this._layouts = {}
     this._overlays = {}
     this._container = container
+    this._emitter = new Vue({})
     return new Proxy(this, proxyHandler)
   }
 
@@ -53,7 +55,9 @@ export default class DialogManager {
 
   getLayout (layout) {
     if (typeof layout === 'function') {
-      layout = layout(this)
+      let options = layout.call(this)
+      layout = this._layouts[options.name || 'default']
+      return { ...layout, ...{ options } }
     }
 
     if (typeof layout === 'object' && typeof layout.render === 'function') {
@@ -116,6 +120,7 @@ export default class DialogManager {
   }
 
   async show (component, options = {}) {
+    this._emitter.$emit('show', { component, options })
     const dlg = this.create(component)
     const overlayName = dlg.hasAsyncPreload ? (component.overlay || 'default') : false
     const overlay = overlayName && this._overlays[overlayName] && this.overlay(overlayName)
@@ -123,9 +128,16 @@ export default class DialogManager {
     overlay && overlay.show()
     try {
       await dlg.show(options)
+      this._emitter.$emit('shown', { dialog: dlg })
       overlay && overlay.hide()
+      if (dlg.vm) {
+        dlg.vm.$on('destroyed', () => {
+          this._emitter.$emit('destroyed', { dialog: dlg })
+        })
+      }
       return options.waitForResult ? dlg.wait() : dlg
     } catch (e) {
+      this._emitter.$emit('error', { error: e, dialog: dlg })
       overlay && overlay.hide()
       throw e
     }
@@ -141,5 +153,17 @@ export default class DialogManager {
   async showAndWait (component, props) {
     const dlg = await this.show(component, props)
     return dlg.wait()
+  }
+
+  on (event, callback) {
+    this._emitter.$on(event, callback)
+  }
+
+  off (event, callback) {
+    this._emitter.$off(event, callback)
+  }
+
+  once (event, callback) {
+    this._emitter.$once(event, callback)
   }
 }
