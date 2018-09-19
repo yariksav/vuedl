@@ -10,6 +10,7 @@
 import Vue from 'vue'
 import Dialog from './dialog'
 import Overlay from './overlay'
+// import Notification from './notification'
 
 const proxyHandler = {
 
@@ -42,8 +43,41 @@ export default class DialogManager {
     this._overlays = {}
     this._container = container
     this._emitter = new Vue({})
+    this._instances = []
+    // this.initEmitter()
     return new Proxy(this, proxyHandler)
   }
+
+  // initEmitter () {
+  //   this._emitter.$on('shown', ({ dialog }) => {
+  //     const position = dialog.vm.position
+  //     let verticalOffset = notificationGap
+  //     this._instances.filter(item => item.vm.position === position).forEach(item => {
+  //       verticalOffset += item.element.offsetHeight + notificationGap
+  //     })
+  //     this._instances.push(dialog)
+  //     dialog.vm.verticalOffset = verticalOffset
+  //   })
+
+  //   this._emitter.$on('destroyed', ({ dialog }) => {
+  //     let index = this._instances.findIndex(instance => instance.id === dialog.id)
+  //     if (index < 0) {
+  //       return
+  //     }
+  //     this._instances.splice(index, 1)
+  //     // console.log('instances', this._instances)
+
+  //     const len = this._instances.length
+  //     const position = dialog.vm.position
+  //     if (!len) return
+
+  //     let verticalOffset = notificationGap
+  //     this._instances.filter(item => item.vm.position === position).forEach(item => {
+  //       item.vm.verticalOffset = verticalOffset
+  //       verticalOffset += item.element.offsetHeight + notificationGap
+  //     })
+  //   })
+  // }
 
   get context () {
     return this._context
@@ -111,16 +145,17 @@ export default class DialogManager {
       throw new Error('Component is incorrect')
     }
 
-    let layout = component.layout && this.getLayout(component.layout)
-    return new Dialog(component, {
+    const layout = this.getLayout(component.layout || 'default')
+    const dlg = new Dialog(component, {
       layout,
       context: this._context,
       container: this._container
     })
+    this._emitter.$emit('created', { dialog: dlg })
+    return dlg
   }
 
   async show (component, options = {}) {
-    this._emitter.$emit('show', { component, options })
     const dlg = this.create(component)
     const overlayName = dlg.hasAsyncPreload ? (component.overlay || 'default') : false
     const overlay = overlayName && this._overlays[overlayName] && this.overlay(overlayName)
@@ -130,11 +165,7 @@ export default class DialogManager {
       await dlg.show(options)
       this._emitter.$emit('shown', { dialog: dlg })
       overlay && overlay.hide()
-      if (dlg.vm) {
-        dlg.vm.$on('destroyed', () => {
-          this._emitter.$emit('destroyed', { dialog: dlg })
-        })
-      }
+      dlg.onDestroyed = this.onDialogDestroyed.bind(this)
       return options.waitForResult ? dlg.wait() : dlg
     } catch (e) {
       this._emitter.$emit('error', { error: e, dialog: dlg })
@@ -165,5 +196,9 @@ export default class DialogManager {
 
   once (event, callback) {
     this._emitter.$once(event, callback)
+  }
+
+  onDialogDestroyed (dialog) {
+    this._emitter.$emit('destroyed', { dialog })
   }
 }

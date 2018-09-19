@@ -9,12 +9,17 @@ export default {
 
   watch: {
     isActive (val) {
-      if (this.isLayout) {
-        this.$children.forEach(vm => {
-          if (vm.isActive !== undefined) {
-            vm.isActive = val
-          }
-        })
+      // debugger
+      // if (this.isLayout) {
+      // this.$children.forEach(vm => {
+      //   if (vm.isActive !== undefined) {
+      //     vm.isActive = val
+      //   }
+      // })
+      if (this._dialogInstance) {
+        if (this._dialogInstance.isActive !== undefined) {
+          this._dialogInstance.isActive = val
+        }
       } else {
         if (this.$parent && this.$parent.isActive !== undefined) {
           this.$parent.isActive = val

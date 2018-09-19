@@ -40,6 +40,12 @@ export default {
   },
 
   methods: {
+    trigger (name) {
+      const action = this.actionlist.find(action => action.key === name)
+      if (action && !this.isActionDisabled(action) && this.isActionVisible(action)) {
+        this.onActionClick(action)
+      }
+    },
     setLoadingToInstance (vm, value) {
       if (vm && vm.loading !== undefined) {
         vm.loading = value
@@ -52,7 +58,7 @@ export default {
       this.setLoadingToInstance(this.$root._dialogInstance, value)
     },
     isActionDisabled (action) {
-      if (!action.disabled) {
+      if (action.disabled === undefined) {
         return false
       }
       if (typeof action.disabled === 'function') {
@@ -60,14 +66,24 @@ export default {
       }
       return action.disabled
     },
+    isActionVisible (action) {
+      if (action.visible === undefined) {
+        return true
+      }
+      if (typeof action.visible === 'function') {
+        return action.visible()
+      }
+      return action.visible
+    },
     async onActionClick (action) {
+      const closable = action.closable === undefined || action.closable === true
       if (action.handle) {
         this.loadingAction = action.key
         this.setLoadingState(true)
         try {
           let ret = await action.handle()
           this.setLoadingState(false)
-          if (ret !== false) {
+          if (ret !== false && closable) {
             this.return(ret || action.key)
           }
         } catch (e) {
@@ -76,7 +92,7 @@ export default {
           throw e
         }
       } else {
-        this.return(action.key)
+        closable && this.return(action.key)
       }
     }
   }

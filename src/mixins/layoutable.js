@@ -8,7 +8,7 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 500
+      default: () => 450
     },
     persistent: Boolean
   },
@@ -28,16 +28,16 @@ export default {
   watch: {
     isActive (val) {
       if (!val) {
-        window.removeEventListener('hashchange', this._destroy)
+        // window.removeEventListener('popstate', this.close)
         this._destroy()
       }
     }
   },
 
   mounted () {
-    this.$nextTick(() => {
-      window.addEventListener('hashchange', this._destroy)
-    })
+    // this.$nextTick(() => {
+    // window.addEventListener('popstate', this.close)
+    // })
     this.isActive = true
   },
 
@@ -49,6 +49,9 @@ export default {
       if (!this.persistent && !this.loading) {
         this.isActive = false
       }
+    },
+    close () {
+      this.isActive = false
     }
   },
 

@@ -22,6 +22,7 @@ import {
 import Debug from 'debug'
 const debug = Debug('vuedl:dialog')
 
+let seed = 1
 export default class Dialog {
   constructor (component, { layout, container } = {}) {
     if (!component) {
@@ -32,17 +33,20 @@ export default class Dialog {
     this._vm = null
     this._vmDialog = null
     this._options = {}
+    this.id = ++seed
     this._resolvers = []
     this.container = findContainer(container)
     debug('created')
   }
 
   async show (params = {}, options = {}) {
+    if (Vue.prototype.$isServer) return
     debug('before show', { params, options })
 
-    const DialogCtor = Vue.extend(merge({
-      mixins: this._component.primaryKey ? [ Recordable ] : null
-    }, this._component))
+    let DialogCtor = Vue.extend(this._component)
+    if (this._component.primaryKey) {
+      DialogCtor = DialogCtor.extend({ mixins: [ Recordable ] })
+    }
 
     if (this.hasAsyncPreload) {
       let res = await ensureAsyncDatas(DialogCtor, { ...this.context, params })
@@ -52,10 +56,11 @@ export default class Dialog {
     const dialog = new DialogCtor(merge({ propsData: params }, this.context, options))
     dialog.$mount()
 
-    const LayoutCtor = Vue.extend(merge({
+    let LayoutCtor = Vue.extend(this._layout.component)
+    LayoutCtor = LayoutCtor.extend({
       mixins: [ Layoutable ],
       destroyed: this._onDestroyed.bind(this)
-    }, this._layout.component))
+    })
 
     // get propsData for wrapper
     const propsData = { ...this._layout.options, ...params }
@@ -64,8 +69,7 @@ export default class Dialog {
     layout.$slots.default = dialog._vnode
     dialog.$parent = this._vm
     layout.$mount()
-    // dialog.$on('update:returnValue', this.onReturn.bind(this))
-    // dialog.$on('close', this.onReturn.bind(this))
+
     layout.$on('submit', this.onReturn.bind(this))
     dialog.$on('submit', this.onReturn.bind(this))
 
@@ -92,6 +96,7 @@ export default class Dialog {
 
   remove () {
     debug('remove')
+    this.onDestroyed && this.onDestroyed(this)
     // this.element.parentNode.removeChild(this.element)
     this._processResultPromises()
     destroyVueElement(this._vm)

@@ -8,7 +8,9 @@
 */
 
 import DialogManager from './manager'
+// import Notificator from './notificator'
 import DialogLayout from './components/DialogLayout.vue'
+import NotificationLayout from './components/NotificationLayout.vue'
 import DialogOverlay from './components/DialogOverlay.vue'
 import Confirm from './components/Confirm.vue'
 
@@ -16,7 +18,7 @@ const Plugin = {
   install (Vue, options = {}) {
     const property = options.property || '$dialog'
     const manager = new DialogManager(options)
-
+    // const no = new Notificator(manager)
     Object.defineProperty(Vue.prototype, property, {
       get () {
         return manager
@@ -24,6 +26,7 @@ const Plugin = {
     })
 
     manager.layout('default', DialogLayout)
+    manager.layout('notification', NotificationLayout)
     manager.overlay('default', DialogOverlay)
 
     manager.component('confirm', Confirm, {
