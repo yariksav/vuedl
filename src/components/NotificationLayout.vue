@@ -24,7 +24,6 @@ import Notifiable from '../mixins/notifiable'
 export default {
   mixins: [ Notifiable ],
   props: {
-  //   verticalOffset: Number,
   //   showClose: {
   //     type: Boolean,
   //     default: () => true
@@ -33,11 +32,6 @@ export default {
       type: Number,
       default: () => 330
     }
-  // },
-  // data () {
-  //   return {
-  //     customClass: '',
-  //   }
   },
   computed: {
     getStyle () {

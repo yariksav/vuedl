@@ -43,7 +43,19 @@ export default class Dialog {
     if (Vue.prototype.$isServer) return
     debug('before show', { params, options })
 
-    let DialogCtor = Vue.extend(this._component)
+    // create layout
+    let LayoutCtor = Vue.extend(this._layout.component)
+    LayoutCtor = LayoutCtor.extend({
+      mixins: [ Layoutable ],
+      destroyed: this._onDestroyed.bind(this)
+    })
+
+    const layout = new LayoutCtor(merge({
+      propsData: { ...this._layout.options, ...params }
+    }, this.context, options))
+
+    // create dialog
+    let DialogCtor = Vue.extend({ ...this._component, parent: layout })
     if (this._component.primaryKey) {
       DialogCtor = DialogCtor.extend({ mixins: [ Recordable ] })
     }
@@ -54,20 +66,10 @@ export default class Dialog {
     }
 
     const dialog = new DialogCtor(merge({ propsData: params }, this.context, options))
+
+    // mounting
     dialog.$mount()
-
-    let LayoutCtor = Vue.extend(this._layout.component)
-    LayoutCtor = LayoutCtor.extend({
-      mixins: [ Layoutable ],
-      destroyed: this._onDestroyed.bind(this)
-    })
-
-    // get propsData for wrapper
-    const propsData = { ...this._layout.options, ...params }
-    const layout = new LayoutCtor(merge({ propsData }, this.context, options))
-
     layout.$slots.default = dialog._vnode
-    dialog.$parent = this._vm
     layout.$mount()
 
     layout.$on('submit', this.onReturn.bind(this))

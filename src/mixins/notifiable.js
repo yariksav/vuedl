@@ -13,7 +13,7 @@ const insertNotification = (vm) => {
 }
 
 const deleteNotification = (vm) => {
-  let index = notifications.findIndex(instance => instance === vm)
+  const index = notifications.findIndex(instance => instance === vm)
   if (index < 0) {
     return
   }
@@ -51,11 +51,6 @@ export default {
     zIndex: {
       type: Number,
       default: () => 2000
-    }
-  },
-  data () {
-    return {
-      timer: null
     }
   },
   computed: {
