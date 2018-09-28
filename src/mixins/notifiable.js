@@ -41,7 +41,7 @@ export default {
       default: () => 'top-right'
     },
     timeout: {
-      type: Number,
+      type: [ Number, Boolean ],
       default: () => 4500
     },
     width: {

@@ -18,12 +18,13 @@ const Plugin = {
   install (Vue, options = {}) {
     const property = options.property || '$dialog'
     const manager = new DialogManager(options)
-    // const no = new Notificator(manager)
-    Object.defineProperty(Vue.prototype, property, {
-      get () {
-        return manager
-      }
-    })
+
+    // Object.defineProperty(Vue.prototype, property, {
+    //   get () {
+    //     return manager
+    //   }
+    // })
+    Vue.prototype[property] = manager
 
     manager.layout('default', DialogLayout)
     manager.layout('notification', NotificationLayout)
