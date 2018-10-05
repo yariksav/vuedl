@@ -44,40 +44,8 @@ export default class DialogManager {
     this._container = container
     this._emitter = new Vue({})
     this._instances = []
-    // this.initEmitter()
     return new Proxy(this, proxyHandler)
   }
-
-  // initEmitter () {
-  //   this._emitter.$on('shown', ({ dialog }) => {
-  //     const position = dialog.vm.position
-  //     let verticalOffset = notificationGap
-  //     this._instances.filter(item => item.vm.position === position).forEach(item => {
-  //       verticalOffset += item.element.offsetHeight + notificationGap
-  //     })
-  //     this._instances.push(dialog)
-  //     dialog.vm.verticalOffset = verticalOffset
-  //   })
-
-  //   this._emitter.$on('destroyed', ({ dialog }) => {
-  //     let index = this._instances.findIndex(instance => instance.id === dialog.id)
-  //     if (index < 0) {
-  //       return
-  //     }
-  //     this._instances.splice(index, 1)
-  //     // console.log('instances', this._instances)
-
-  //     const len = this._instances.length
-  //     const position = dialog.vm.position
-  //     if (!len) return
-
-  //     let verticalOffset = notificationGap
-  //     this._instances.filter(item => item.vm.position === position).forEach(item => {
-  //       item.vm.verticalOffset = verticalOffset
-  //       verticalOffset += item.element.offsetHeight + notificationGap
-  //     })
-  //   })
-  // }
 
   get context () {
     return this._context
@@ -89,7 +57,7 @@ export default class DialogManager {
 
   getLayout (layout) {
     if (typeof layout === 'function') {
-      let options = layout.call(this)
+      let options = layout.call(this._context)
       layout = this._layouts[options.name || 'default']
       return { ...layout, ...{ options } }
     }

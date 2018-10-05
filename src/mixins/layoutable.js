@@ -7,7 +7,7 @@ export default {
 
   props: {
     width: {
-      type: Number,
+      type: [ String, Number ],
       default: () => 450
     },
     persistent: Boolean
@@ -19,9 +19,12 @@ export default {
     }
   },
 
-  compouted: {
+  computed: {
     isLayout () {
       return true
+    },
+    getWidth () {
+      return typeof this.width === 'string' ? this.width : this.width + 'px'
     }
   },
 

@@ -44,11 +44,10 @@ export default class Dialog {
     debug('before show', { params, options })
 
     // create layout
-    let LayoutCtor = Vue.extend(this._layout.component)
-    LayoutCtor = LayoutCtor.extend({
-      mixins: [ Layoutable ],
-      destroyed: this._onDestroyed.bind(this)
+    let LayoutCtor = Vue.extend({
+      mixins: [ Layoutable ]
     })
+    LayoutCtor = LayoutCtor.extend(this._layout.component)
 
     const layout = new LayoutCtor(merge({
       propsData: { ...this._layout.options, ...params }
@@ -72,6 +71,7 @@ export default class Dialog {
     layout.$slots.default = dialog._vnode
     layout.$mount()
 
+    layout.$on('hook:destroyed', this._onDestroyed.bind(this))
     layout.$on('submit', this.onReturn.bind(this))
     dialog.$on('submit', this.onReturn.bind(this))
 

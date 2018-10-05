@@ -8,7 +8,6 @@
 */
 
 import DialogManager from './manager'
-// import Notificator from './notificator'
 import DialogLayout from './components/DialogLayout.vue'
 import NotificationLayout from './components/NotificationLayout.vue'
 import DialogOverlay from './components/DialogOverlay.vue'

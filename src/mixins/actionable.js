@@ -33,6 +33,11 @@ export default {
         if (['true', 'false'].indexOf(action.key) >= 0) {
           action.key = JSON.parse(action.key)
         }
+        if (typeof action.icon === 'string') {
+          action.icon = {
+            text: action.icon
+          }
+        }
         actions.push(action)
       }
       return actions
