@@ -1,9 +1,9 @@
 <template>
   <div class="confirm-box">
     <div v-if="!!title" class="confirm-title">
-      <h1 class="title">{{ title }}</h1>
+      <span class="title">{{ title }}</span>
     </div>
-    <div class="confirm-message" v-html="message" />
+    <div class="confirm-message" v-html="text" />
     <div class="confirm-buttons">
       <div class="column">
         <DialogActions :actions="actions"/>
@@ -20,7 +20,7 @@ export default {
   components: {
     DialogActions
   },
-  layout: 'default',
+  layout: [ 'default', { width: 450 } ],
   mixins: [ Confirmable ]
 }
 
@@ -31,7 +31,10 @@ export default {
     background: #ffffff;
   }
   .confirm-box .confirm-title {
-    padding: 20px
+    padding: 14px
+  }
+  .confirm-box .confirm-title .title {
+    font-size: 24px
   }
   .confirm-box .confirm-message {
     padding: 0 20px;
@@ -40,8 +43,8 @@ export default {
     text-align:  right;
     padding: 10px 20px;
   }
-  .confirm-box .confirm-buttons .button {
+  /* .confirm-box .confirm-buttons .button {
     font-size: 20px;
     padding-left: 20px;
-  }
+  } */
 </style>

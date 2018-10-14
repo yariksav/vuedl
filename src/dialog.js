@@ -19,8 +19,8 @@ import {
   findContainer
 } from './utils'
 
-import Debug from 'debug'
-const debug = Debug('vuedl:dialog')
+// import Debug from 'debug'
+// const debug = Debug('vuedl:dialog')
 
 let seed = 1
 export default class Dialog {
@@ -36,12 +36,12 @@ export default class Dialog {
     this.id = ++seed
     this._resolvers = []
     this.container = findContainer(container)
-    debug('created')
+    // debug('created')
   }
 
   async show (params = {}, options = {}) {
     if (Vue.prototype.$isServer) return
-    debug('before show', { params, options })
+    // debug('before show', { params, options })
 
     // create layout
     let LayoutCtor = Vue.extend({
@@ -60,8 +60,9 @@ export default class Dialog {
     }
 
     if (this.hasAsyncPreload) {
-      let res = await ensureAsyncDatas(DialogCtor, { ...this.context, params })
-      debug('async datas', res)
+      // let res =
+      await ensureAsyncDatas(DialogCtor, { ...this.context, params })
+      // debug('async datas', res)
     }
 
     const dialog = new DialogCtor(merge({ propsData: params }, this.context, options))
@@ -97,7 +98,7 @@ export default class Dialog {
   }
 
   remove () {
-    debug('remove')
+    // debug('remove')
     this.onDestroyed && this.onDestroyed(this)
     // this.element.parentNode.removeChild(this.element)
     this._processResultPromises()
@@ -111,13 +112,13 @@ export default class Dialog {
     if (!this._resolvers.length) {
       return
     }
-    debug('processResultPromises', result)
+    // debug('processResultPromises', result)
     this._resolvers.forEach(resolver => resolver(result))
     this._resolvers = []
   }
 
   onReturn (result) {
-    debug('onReturn', result)
+    // debug('onReturn', result)
     this._processResultPromises(result)
     this.close()
   }
