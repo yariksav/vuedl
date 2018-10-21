@@ -24,9 +24,8 @@ export default {
       for (let key in this.actions) {
         let action = this.actions[key]
         if (typeof action === 'string') {
-          action = {text: action}
+          action = { text: action }
         }
-        this.$set(action, 'loading', false)
         if (!action.key) {
           action.key = isNaN(key) ? key : action.text
         }
@@ -62,23 +61,23 @@ export default {
       this.setLoadingToInstance(this.$root, value)
       this.setLoadingToInstance(this.$root._dialogInstance, value)
     },
+    get (param, def) {
+      if (param === undefined) {
+        return def
+      }
+      if (typeof param === 'function') {
+        return param()
+      }
+      return param
+    },
     isActionDisabled (action) {
-      if (action.disabled === undefined) {
-        return false
-      }
-      if (typeof action.disabled === 'function') {
-        return action.disabled()
-      }
-      return action.disabled
+      return this.get(action.disabled, false)
     },
     isActionVisible (action) {
-      if (action.visible === undefined) {
-        return true
-      }
-      if (typeof action.visible === 'function') {
-        return action.visible()
-      }
-      return action.visible
+      return this.get(action.visible, true)
+    },
+    isActionInLoading (action) {
+      return this.loadingAction === action.key || this.get(action.loading)
     },
     async onActionClick (action) {
       const closable = action.closable === undefined || action.closable === true

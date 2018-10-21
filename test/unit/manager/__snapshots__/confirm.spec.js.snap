@@ -11,7 +11,9 @@ exports[`manager Check confirm 1`] = `
      
     <div
       class="confirm-message"
-    />
+    >
+      test
+    </div>
      
     <div
       class="confirm-buttons"
@@ -54,7 +56,9 @@ exports[`manager Check confirm with btns true|false 1`] = `
      
     <div
       class="confirm-message"
-    />
+    >
+      test
+    </div>
      
     <div
       class="confirm-buttons"
@@ -97,7 +101,9 @@ exports[`manager Check confirm with handle functions 1`] = `
      
     <div
       class="confirm-message"
-    />
+    >
+      test
+    </div>
      
     <div
       class="confirm-buttons"
@@ -140,7 +146,9 @@ exports[`manager Check confirm with handle functions 2`] = `
      
     <div
       class="confirm-message"
-    />
+    >
+      test
+    </div>
      
     <div
       class="confirm-buttons"
