@@ -15,7 +15,9 @@ export default {
     actions: {
       type: [Array, Object],
       default: () => []
-    }
+    },
+    handle: Function,
+    params: Object
   },
 
   computed: {
@@ -27,7 +29,7 @@ export default {
           action = { text: action }
         }
         if (!action.key) {
-          action.key = isNaN(key) ? key : action.text
+          action.key = isNaN(key) ? key : (action.text || key)
         }
         if (['true', 'false'].indexOf(action.key) >= 0) {
           action.key = JSON.parse(action.key)
@@ -66,7 +68,7 @@ export default {
         return def
       }
       if (typeof param === 'function') {
-        return param()
+        return param(this.params)
       }
       return param
     },
@@ -81,11 +83,12 @@ export default {
     },
     async onActionClick (action) {
       const closable = action.closable === undefined || action.closable === true
-      if (action.handle) {
+      const handle = action.handle || this.handle
+      if (typeof handle === 'function') {
         this.loadingAction = action.key
         this.setLoadingState(true)
         try {
-          let ret = await action.handle()
+          let ret = await handle(this.params)
           this.setLoadingState(false)
           if (ret !== false && closable) {
             this.return(ret || action.key)

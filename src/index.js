@@ -8,62 +8,40 @@
 */
 
 import DialogManager from './manager'
-// import DialogLayout from './components/DialogLayout.vue'
-// import NotificationLayout from './components/NotificationLayout.vue'
-// import DialogOverlay from './components/DialogOverlay.vue'
-// import Confirm from './components/Confirm.vue'
+import _Actionable from './mixins/actionable'
+import _Activable from './mixins/activable'
+import _Confirmable from './mixins/confirmable'
+import _Notifiable from './mixins/notifiable'
+import _Recordable from './mixins/recordable'
+import _Returnable from './mixins/returnable'
 
-// import Actionable from './mixins/actionable'
-// import Activable from './mixins/activable'
-// import Confirmable from './mixins/confirmable'
-// import Notifiable from './mixins/notifiable'
-// import Recordable from './mixins/recordable'
-// import Returnable from './mixins/returnable'
+export function install (Vue, options = {}) {
+  const property = options.property || '$dialog'
+  const manager = new DialogManager(options)
 
-const Plugin = {
-  install (Vue, options = {}) {
-    const property = options.property || '$dialog'
-    const manager = new DialogManager(options)
-
-    Object.defineProperty(Vue.prototype, property, {
-      get () {
-        return manager
-      }
-    })
-    // Vue.prototype[property] = manager
-
-    // manager.layout('default', DialogLayout)
-    //  manager.layout('notification', NotificationLayout)
-    // manager.overlay('default', DialogOverlay)
-
-    // manager.component('confirm', Confirm, {
-    //   waitForResult: true,
-    //   actions: {
-    //     'false': 'Cancel',
-    //     'true': 'OK'
-    //   }
-    // })
-
-    // manager.component('warning', Confirm, {
-    //   type: 'warning',
-    //   waitForResult: true,
-    //   actions: {
-    //     'false': 'Cancel',
-    //     'true': 'OK'
-    //   }
-    // })
-
-    // manager.component('error', Confirm, {
-    //   type: 'error',
-    //   waitForResult: true,
-    //   actions: [
-    //     'OK'
-    //   ]
-    // })
-  }
+  Object.defineProperty(Vue.prototype, property, {
+    get () {
+      return manager
+    }
+  })
 }
 
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(Plugin)
+export const Actionable = _Actionable
+export const Activable = _Activable
+export const Confirmable = _Confirmable
+export const Notifiable = _Notifiable
+export const Recordable = _Recordable
+export const Returnable = _Returnable
+
+// Auto-install
+let GlobalVue = null
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue
 }
-export default Plugin
+if (GlobalVue) {
+  GlobalVue.use({
+    install
+  })
+}

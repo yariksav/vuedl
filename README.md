@@ -9,7 +9,14 @@ Inspire of Nuxt.js logic, **vuedl** also has `asyncData`, `fetch`, `layout` and 
 [![NPM Version][npm-image]][npm-url]
 
 <!-- ## Demo page -->
-<!-- [See demo here](https://yariksav.github.io/demo_vuedl.html) -->
+<!-- [See demo here](https://yariksav.github.io/demo_vuedl.html)
+ -->
+## Used in frameworks
+1. [vuetify](https://www.npmjs.com/package/vuetify-dialog)
+
+2. [bootstrap-vue](https://www.npmjs.com/package/bootstrap-vue-dialog) 
+
+
 ## Setup
 
 Install the package from npm
@@ -43,11 +50,11 @@ const dialog = await this.$dialog.show(MyDialog, params, options)
 ```
 `dialog` will be instance of DialogManager
 
-### Register anduse global dialog
+### Register and use dialog components
 
-Register global dialog component, which will be available in any vue module
+Register global dialog component, then it will be available in any vue module
 ```javascript
-Vue.prototype.$dialog.register('myDialog', MyDialog)
+Vue.prototype.$dialog.component('myDialog', MyDialog)
 ```
 Then you can use it in any code
 ```javascript
@@ -110,7 +117,7 @@ v-dialog offers you different ways to use `asyncData`. Choose the one you're the
 
 `fetch` is use for calling store methods, and not impact to instance data
 
-1. Returning a `Promise`. v-dialog will wait for the promise to be resolved before rendering the component.
+1. Returning a `Promise`. Vuedl will wait for the promise to be resolved before rendering the component.
 2. Using the [async/await proposal](https://github.com/lukehoban/ecmascript-asyncawait) ([learn more about it](https://zeit.co/blog/async-and-await))
 3. Define a callback as second argument. It has to be called like this: `callback(err, data)`
 

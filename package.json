@@ -1,6 +1,6 @@
 {
   "name": "vuedl",
-  "version": "0.0.10",
+  "version": "0.0.13",
   "description": "Vue dialog helper",
   "scripts": {
     "build2": "npm run build && cp -r dist/ ../../cmpact/billing-front/node_modules/vuedl/dist/ && cp -r src/ ../../cmpact/billing-front/node_modules/vuedl/src/ && cp -r dist/ ../vuetify-dialog/node_modules/vuedl/dist/ && cp -r src/ ../vuetify-dialog/node_modules/vuedl/src/",
