@@ -10,7 +10,6 @@
 import Vue from 'vue'
 import Dialog from './dialog'
 import Overlay from './overlay'
-// import Notification from './notification'
 
 const proxyHandler = {
 

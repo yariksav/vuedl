@@ -31,16 +31,12 @@ export default {
   watch: {
     isActive (val) {
       if (!val) {
-        // window.removeEventListener('popstate', this.close)
         this._destroy()
       }
     }
   },
 
   mounted () {
-    // this.$nextTick(() => {
-    // window.addEventListener('popstate', this.close)
-    // })
     this.isActive = true
   },
 

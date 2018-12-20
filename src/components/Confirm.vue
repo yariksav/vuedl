@@ -1,12 +1,14 @@
 <template>
   <div class="confirm-box">
     <div v-if="!!title" class="confirm-title">
-      <span class="title">{{ title }}</span>
+      <span class="title">
+        {{ title }}
+      </span>
     </div>
     <div class="confirm-message" v-html="text" />
     <div class="confirm-buttons">
       <div class="column">
-        <DialogActions :actions="actions"/>
+        <DialogActions :actions="actions" />
       </div>
     </div>
   </div>

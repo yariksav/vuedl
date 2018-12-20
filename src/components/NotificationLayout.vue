@@ -8,11 +8,12 @@
       @mouseleave="startTimer"
       role="alert"
     >
-      <slot/>
+      <slot />
       <div
         class="vuedl-notification__closeBtn"
         v-if="showClose"
-        @click.stop="close">×</div>
+        @click.stop="close"
+      >×</div>
     </div>
   </transition>
 </template>
@@ -24,10 +25,6 @@ import Notifiable from '../mixins/notifiable'
 export default {
   mixins: [ Notifiable ],
   props: {
-  //   showClose: {
-  //     type: Boolean,
-  //     default: () => true
-  //   },
     width: {
       type: Number,
       default: () => 330
@@ -42,15 +39,6 @@ export default {
       }
     }
   }
-  // methods: {
-  //   _destroy () {
-  //     this.$el.addEventListener('transitionend', this.onTransitionEnd)
-  //   },
-  //   onTransitionEnd () {
-  //     this.$el.removeEventListener('transitionend', this.onTransitionEnd)
-  //     this.$destroy()
-  //   }
-  // }
 }
 </script>
 <style>
@@ -109,20 +97,4 @@ export default {
       max-width: inherit!important;
     }
   }
-
- /* .el-notification-fade-enter {
-    &.right {
-      right: 0;
-      transform: translateX(100%);
-    }
-
-    &.left {
-      left: 0;
-      transform: translateX(-100%);
-    }
-  }
-
-  .el-notification-fade-leave-active {
-    opacity: 0;
-  }*/
 </style>

@@ -1,6 +1,12 @@
 <template>
   <transition name="opacity">
-    <div class="dialog-overlay-loading" :style="{zIndex: zIndex}" v-if="visible">Loading&#8230;</div>
+    <div
+      class="dialog-overlay-loading"
+      :style="{zIndex: zIndex}"
+      v-if="visible"
+    >
+      Loading&#8230;
+    </div>
   </transition>
 </template>
 <script>
@@ -31,7 +37,6 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  /* background: rgba(112, 112, 112, 0.4); */
   cursor: wait;
 }
 

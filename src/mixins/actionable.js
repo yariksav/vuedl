@@ -1,3 +1,4 @@
+
 import Returnable from './returnable'
 
 export default {
@@ -33,6 +34,9 @@ export default {
         }
         if (['true', 'false'].indexOf(action.key) >= 0) {
           action.key = JSON.parse(action.key)
+        }
+        if (!this.isActionVisible(action)) {
+          continue
         }
         if (typeof action.icon === 'string') {
           action.icon = {

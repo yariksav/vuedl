@@ -24,7 +24,9 @@ module.exports = {
     'vue/max-attributes-per-line': 'off',
     'vue/html-indent': 'off',
     'vue/require-default-prop': 'off',
-    'no-useless-escape': 'off'
+    'no-useless-escape': 'off',
+    'vue/component-name-in-template-casing': 'off',
+    'vue/multiline-html-element-content-newline': 'off'
   },
   globals: {}
 }

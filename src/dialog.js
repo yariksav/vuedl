@@ -19,16 +19,13 @@ import {
   findContainer
 } from './utils'
 
-// import Debug from 'debug'
-// const debug = Debug('vuedl:dialog')
-
 let seed = 1
 export default class Dialog {
   constructor (component, { layout, container } = {}) {
     if (!component) {
       throw Error('Component was not setted')
     }
-    this._layout = layout || {component: DefaultLayout, options: {}}
+    this._layout = layout || { component: DefaultLayout, options: {} }
     this._component = component
     this._vm = null
     this._vmDialog = null
@@ -36,13 +33,10 @@ export default class Dialog {
     this.id = ++seed
     this._resolvers = []
     this.container = findContainer(container)
-    // debug('created')
   }
 
   async show (params = {}, options = {}) {
     if (Vue.prototype.$isServer) return
-    // debug('before show', { params, options })
-
     // create layout
     let LayoutCtor = Vue.extend({
       mixins: [ Layoutable ]
@@ -60,9 +54,7 @@ export default class Dialog {
     }
 
     if (this.hasAsyncPreload) {
-      // let res =
       await ensureAsyncDatas(DialogCtor, { ...this.context, params })
-      // debug('async datas', res)
     }
 
     const dialog = new DialogCtor(merge({ propsData: params }, this.context, options))
@@ -98,9 +90,7 @@ export default class Dialog {
   }
 
   remove () {
-    // debug('remove')
     this.onDestroyed && this.onDestroyed(this)
-    // this.element.parentNode.removeChild(this.element)
     this._processResultPromises()
     destroyVueElement(this._vm)
     destroyVueElement(this._vmDialog)
@@ -112,13 +102,11 @@ export default class Dialog {
     if (!this._resolvers.length) {
       return
     }
-    // debug('processResultPromises', result)
     this._resolvers.forEach(resolver => resolver(result))
     this._resolvers = []
   }
 
   onReturn (result) {
-    // debug('onReturn', result)
     this._processResultPromises(result)
     this.close()
   }
@@ -144,6 +132,6 @@ export default class Dialog {
   }
 
   close () {
-    this._vm.close()
+    this._vm && this._vm.close()
   }
 }

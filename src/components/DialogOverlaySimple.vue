@@ -1,6 +1,12 @@
 <template>
   <transition name="opacity">
-    <div aria-label="loading" :style="{zIndex: zIndex}" v-if="visible" :class="['vc', 'vc-loading-overlay', 'no-select']"/>
+    <div
+
+      v-if="visible"
+      aria-label="loading"
+      :style="{zIndex: zIndex}"
+      :class="['vc', 'vc-loading-overlay', 'no-select']"
+    />
   </transition>
 </template>
 <script>

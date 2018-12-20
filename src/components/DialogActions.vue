@@ -5,7 +5,8 @@
       :action-key="''+action.key"
       :class="{'loading': loadingAction === action.key}"
       :disabled="isActionDisabled(action) || !!loadingAction"
-      @click="onActionClick(action)">
+      @click="onActionClick(action)"
+    >
       {{ action.text }}
     </button>
   </span>
