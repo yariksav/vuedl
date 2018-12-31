@@ -11,7 +11,7 @@ describe('manager', () => {
   let manager
 
   test('Create manager instance', () => {
-    manager = new DialogManager({ context: {store: {}} })
+    manager = new DialogManager({ context: { store: {} } })
     expect(manager).toBeInstanceOf(DialogManager)
   })
 

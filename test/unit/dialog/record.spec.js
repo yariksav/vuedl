@@ -6,7 +6,7 @@ test('Check is not isNewRecord', async () => {
     template: '<p>{{ isNewRecord }}</p>',
     primaryKey: 'id'
   })
-  await dlg.show({id: 123})
+  await dlg.show({ id: 123 })
   expect(dlg.element.innerHTML).toBe('<p>false</p>')
   dlg.close()
 })
@@ -35,7 +35,7 @@ test('Check parameters', async () => {
     template: '<p></p>',
     primaryKey: 'id'
   })
-  const params = {id: 1, name: 'foo'}
+  const params = { id: 1, name: 'foo' }
   await dlg.show(params)
   expect(dlg.vmd.$parameters).toBe(params)
   dlg.close()

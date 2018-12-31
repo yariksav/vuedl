@@ -2,7 +2,7 @@ import Dialog from '../../../src/dialog'
 import Vue from 'vue'
 import { mount } from '../../utils'
 
-const context = {foo: 'bar'}
+const context = { foo: 'bar' }
 
 describe('dialog asyncData and fetch', () => {
   beforeAll(() => {
@@ -13,7 +13,10 @@ describe('dialog asyncData and fetch', () => {
     const asyncData = jest.fn((ctx) => {
       return new Promise((resolve) => {
         // check valid context in asyncData
-        expect(ctx).toEqual({...context, params: { bar: 'baz' }})
+        expect(ctx).toEqual({
+          ...context,
+          params: { bar: 'baz' }
+        })
         setTimeout(() => resolve({ msg: 'foo' }), 1)
       })
     })
@@ -34,7 +37,10 @@ describe('dialog asyncData and fetch', () => {
     const fetch = jest.fn((ctx) => {
       return new Promise(resolve => {
         // check valid context in fetch
-        expect(ctx).toEqual({...context, params: { bar: 'baz' }})
+        expect(ctx).toEqual({
+          ...context,
+          params: { bar: 'baz' }
+        })
         setTimeout(() => {
           fetched = true
           resolve()

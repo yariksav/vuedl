@@ -36,7 +36,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>'
     }, {
-      layout: {component: layout}
+      layout: { component: layout }
     })
     await dialog.show()
     expect(dialog.element).toMatchSnapshot()

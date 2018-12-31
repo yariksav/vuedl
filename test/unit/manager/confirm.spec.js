@@ -49,7 +49,7 @@ describe('manager', () => {
   test('Check confirm with btns true|false', async () => {
     let dlg = await manager.confirm({
       text: 'test',
-      actions: {'true': 'Yes', false: 'No'}
+      actions: { 'true': 'Yes', false: 'No' }
     })
     const wrapper = wrap(dlg.vm)
     expect(dlg.element).toMatchSnapshot()
@@ -89,7 +89,7 @@ describe('manager', () => {
       })
     }, 5)
     let res = await dlg.wait()
-    expect(res).toEqual({msg: 'foo'})
+    expect(res).toEqual({ msg: 'foo' })
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })

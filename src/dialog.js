@@ -48,16 +48,18 @@ export default class Dialog {
     }, this.context, options))
 
     // create dialog
-    let DialogCtor = Vue.extend({ ...this._component, parent: layout })
-    if (this._component.primaryKey) {
-      DialogCtor = DialogCtor.extend({ mixins: [ Recordable ] })
+    let Component = this._component
+    if (typeof Component === 'object' && !Component.options) {
+      Component = Vue.extend({ ...this._component, parent: layout })
+      if (this._component.primaryKey) {
+        Component = Component.extend({ mixins: [ Recordable ] })
+      }
+      if (this.hasAsyncPreload) {
+        await ensureAsyncDatas(Component, { ...this.context, params })
+      }
     }
 
-    if (this.hasAsyncPreload) {
-      await ensureAsyncDatas(DialogCtor, { ...this.context, params })
-    }
-
-    const dialog = new DialogCtor(merge({ propsData: params }, this.context, options))
+    const dialog = new Component(merge({ propsData: params }, this.context, options))
 
     // mounting
     dialog.$mount()
