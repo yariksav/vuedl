@@ -27,6 +27,7 @@ describe('manager', () => {
     }, 5)
     let res = await dlg.wait()
     expect(res).toBe(123)
+    await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })
 

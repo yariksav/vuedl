@@ -1,5 +1,5 @@
 <template>
-  <transition name="vuedl-notification-fade">
+  <transition name="vuedl-notification-fade" @after-leave="onTransitionEnd">
     <div
       :class="['vuedl-notification', horizontalClass]"
       v-show="isActive"
