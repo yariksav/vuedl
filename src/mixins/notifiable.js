@@ -53,6 +53,11 @@ export default {
       default: () => 2000
     }
   },
+  data () {
+    return {
+      activeTimeout: null
+    }
+  },
   computed: {
     horizontalClass () {
       return this.position.indexOf('right') > -1 ? 'right' : 'left'
@@ -77,11 +82,11 @@ export default {
       this.$destroy()
     },
     clearTimer () {
-      clearTimeout(this.timer)
+      clearTimeout(this.activeTimeout)
     },
     startTimer () {
       if (this.timeout > 0) {
-        this.timer = setTimeout(this.close, this.timeout)
+        this.activeTimeout = setTimeout(this.close, this.timeout)
       }
     },
     keydown (e) {
