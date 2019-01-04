@@ -27,16 +27,16 @@ exports[`manager Check confirm 1`] = `
             class="button"
           >
             
-    ok
-  
+  ok
+
           </button>
           <button
             action-key="cancel"
             class="button"
           >
             
-    cancel
-  
+  cancel
+
           </button>
         </span>
       </div>
@@ -72,16 +72,16 @@ exports[`manager Check confirm with btns true|false 1`] = `
             class="button"
           >
             
-    Yes
-  
+  Yes
+
           </button>
           <button
             action-key="false"
             class="button"
           >
             
-    No
-  
+  No
+
           </button>
         </span>
       </div>
@@ -117,16 +117,16 @@ exports[`manager Check confirm with handle functions 1`] = `
             class="button"
           >
             
-    No
-  
+  No
+
           </button>
           <button
             action-key="true"
             class="button"
           >
             
-    Yes
-  
+  Yes
+
           </button>
         </span>
       </div>
@@ -163,8 +163,8 @@ exports[`manager Check confirm with handle functions 2`] = `
             disabled="disabled"
           >
             
-    No
-  
+  No
+
           </button>
           <button
             action-key="true"
@@ -172,8 +172,8 @@ exports[`manager Check confirm with handle functions 2`] = `
             disabled="disabled"
           >
             
-    Yes
-  
+  Yes
+
           </button>
         </span>
       </div>

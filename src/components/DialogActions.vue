@@ -1,21 +1,49 @@
 <template>
   <span>
-    <button v-for="action in actionlist" :key="action.key"
-      class="button"
+    <DialogAction
+      v-for="action in actionlist"
+      :key="action.key"
+      v-bind="getActionProps(action)"
       :action-key="''+action.key"
-      :class="{'loading': loadingAction === action.key}"
-      :disabled="isActionDisabled(action) || !!loadingAction"
+      :loading="!passive && isActionInLoading(action)"
+      :disabled="isActionDisabled(action) || (!passive && Boolean(loadingAction))"
       @click="onActionClick(action)"
     >
       {{ action.text }}
-    </button>
+    </DialogAction>
   </span>
 </template>
 <script>
 
 import Actionable from '../mixins/actionable'
+import DialogAction from './DialogAction.vue'
 
 export default {
-  mixins: [ Actionable ]
+  components: {
+    DialogAction
+  },
+  mixins: [ Actionable ],
+  props: {
+    passive: Boolean
+  },
+  computed: {
+    nestedProps () {
+      return []
+    }
+  },
+  methods: {
+    getActionProps (action) {
+      const res = {
+        component: action.component || this.component,
+        text: action.text
+      }
+      this.nestedProps.forEach(key => {
+        if (action[key] || this[key]) {
+          res[key] = action[key] === undefined ? this[key] : action[key]
+        }
+      })
+      return res
+    }
+  }
 }
 </script>
