@@ -53,11 +53,10 @@ export default {
       this.isActive = false
     }
   },
-
   beforeDestroy () {
-    if (typeof (this.$el).remove !== 'undefined') {
+    if (typeof this.$el.remove === 'function') {
       this.$el.remove()
-    } else {
+    } else if (this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el)
     }
   }

@@ -1,17 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dialog layouts Check layout 1`] = `
-<div>
+exports[`dialog layouts Should close when in not persistent and not loading state 1`] = `
+<div
+  class="dialog-layout"
+>
   <p>
     foo
   </p>
 </div>
 `;
 
-exports[`dialog layouts Check layout object 1`] = `
+exports[`dialog layouts Should work with layout 1`] = `
 <div
   class="dialog-layout"
 >
+  <p>
+    foo
+  </p>
+</div>
+`;
+
+exports[`dialog layouts Should work with layout with component property 1`] = `
+<div>
   <p>
     foo
   </p>
