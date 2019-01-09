@@ -1,7 +1,7 @@
 <template>
   <component
     :is="component"
-    :class="{button: true, loading: this.loading}"
+    :class="{ button: true, loading: this.loading }"
     :disabled="disabled"
     v-bind="attrs"
     @click="$emit('click', this)"

@@ -26,23 +26,23 @@ export default {
   props: {
     passive: Boolean
   },
-  computed: {
-    nestedProps () {
-      return []
-    }
-  },
+  // computed: {
+  //   nestedProps () {
+  //     return []
+  //   }
+  // },
   methods: {
     getActionProps (action) {
-      const res = {
+      return {
         component: action.component || this.component,
         text: action.text
       }
-      this.nestedProps.forEach(key => {
-        if (action[key] || this[key]) {
-          res[key] = action[key] === undefined ? this[key] : action[key]
-        }
-      })
-      return res
+      // this.nestedProps.forEach(key => {
+      //   if (action[key] || this[key]) {
+      //     res[key] = action[key] === undefined ? this[key] : action[key]
+      //   }
+      // })
+      // return res
     }
   }
 }
