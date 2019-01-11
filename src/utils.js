@@ -11,7 +11,9 @@
 import Vue from 'vue'
 
 const noopData = () => ({})
+/* else if (typeof fn === 'object') {
 
+  } */
 export function promisify (fn, context) {
   let promise
   if (fn.length === 2) {
@@ -28,10 +30,43 @@ export function promisify (fn, context) {
   } else {
     promise = fn(context)
   }
-  if (!promise || (!(promise instanceof Promise) && (typeof promise.then !== 'function'))) {
-    promise = Promise.resolve(promise)
+
+  if (!isPromise(promise)) {
+    if (typeof promise === 'object') {
+      promise = checkObjectForPromises(promise, context)
+    } else {
+      promise = Promise.resolve(promise)
+    }
   }
   return promise
+}
+
+export function checkObjectForPromises (obj, context) {
+  let promises = []
+  let data = {}
+  if (typeof obj === 'object') {
+    for (let key in obj) {
+      let something = obj[key]
+      if (typeof something === 'function') {
+        something = something(context)
+      }
+      if (isPromise(something)) {
+        let newPromise = something.then((res) => {
+          data[key] = res
+        })
+        promises.push(newPromise)
+      } else {
+        data[key] = something
+      }
+    }
+  }
+  return Promise.all(promises).then(() => {
+    return Promise.resolve(data)
+  })
+}
+
+export function isPromise (promise) {
+  return promise && (promise instanceof Promise || typeof promise.then === 'function')
 }
 
 export function destroyVueElement (vm) {
@@ -125,4 +160,14 @@ export async function ensureAsyncDatas (components, context) {
 
     return Promise.all(promises)
   }))
+}
+// todo
+export function middlewareSeries (promises, appContext) {
+  if (!promises.length || appContext._redirected || appContext._errored) {
+    return Promise.resolve()
+  }
+  return promisify(promises[0], appContext)
+    .then(() => {
+      return middlewareSeries(promises.slice(1), appContext)
+    })
 }

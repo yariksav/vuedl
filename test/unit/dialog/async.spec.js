@@ -158,4 +158,68 @@ describe('dialog asyncData and fetch', () => {
     expect(fnWait).toHaveBeenCalledTimes(4)
     expect(document.body.innerHTML).toBe('')
   })
+
+  // test('Check asyncData error', async () => {
+  //   const dlg = new Dialog({
+  //     render: () => {},
+  //     asyncData () {
+  //       throw new Error('Error in asyncData')
+  //     }
+  //   })
+  //   expect(dlg.show()).rejects.toThrowError('Error in asyncData')
+  //   expect(dlg.element).toBe(null)
+  //   expect(dlg.vm).toBe(null)
+  // })
+  const genCallback = (ret, timeout) => {
+    return () => {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(ret), timeout)
+      })
+    }
+  }
+
+  test('Check when asyncData is object of Promises', async () => {
+    var start = new Date().getTime()
+    const { dialog } = await mount({
+      template: '<p>{{ $data }}</p>',
+      asyncData () {
+        return {
+          dataObject: genCallback({ test: 1 }, 10),
+          dataString: genCallback('string', 30),
+          dataNumber: genCallback(123, 30),
+          simpleString: 'some string',
+          simpleObject: { test: 123456 }
+          // dataPromise: getCallback(new Promise(), 30)
+        }
+      }
+    })
+    var end = new Date().getTime()
+    expect(end - start).toBeLessThan(50)
+    expect(dialog.element.innerHTML).toMatchSnapshot()
+    dialog.close()
+  })
+
+  test('Check when asyncData is promise of Promises', async () => {
+    // var start = new Date().getTime()
+    // {{ dataObject.test }}:{{ dataString }}:{{ dataNumber }}
+    const { dialog } = await mount({
+      template: '<p>{{ $data }}</p>',
+      async asyncData () {
+        return {
+          dataObject: genCallback({ test: 1 }, 10),
+          dataString: genCallback('string', 30),
+          dataNumber: genCallback(123, 30),
+          simpleString: 'some string',
+          simpleObject: { test: 123456 }
+          // dataPromise: getCallback(new Promise(), 30)
+        }
+      }
+    })
+    // var end = new Date().getTime()
+    // expect(end - start).toBeLessThan(50)
+    expect(dialog.element.innerHTML).toMatchSnapshot()
+    dialog.close()
+  })
+
+  // test with errors
 })

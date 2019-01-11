@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dialog asyncData and fetch Check when asyncData is object of Promises 1`] = `
+"<p>{
+  \\"simpleString\\": \\"some string\\",
+  \\"simpleObject\\": {
+    \\"test\\": 123456
+  },
+  \\"dataObject\\": {
+    \\"test\\": 1
+  },
+  \\"dataString\\": \\"string\\",
+  \\"dataNumber\\": 123
+}</p>"
+`;
+
+exports[`dialog asyncData and fetch Check when asyncData is promise of Promises 1`] = `
+"<p>{
+  \\"simpleString\\": \\"some string\\",
+  \\"simpleObject\\": {
+    \\"test\\": 123456
+  }
+}</p>"
+`;

@@ -1,18 +1,24 @@
 // Import vue components
 import DialogManager from './manager'
-// import * as components from './components/index'
 
 // install function executed by Vue.use()
 function install (Vue, options = {}) {
+  if (install.installed) return
+  install.installed = true
   const property = options.property || '$dialog'
   const manager = new DialogManager(options)
 
-  Object.defineProperty(Vue.prototype, property, {
-    get () {
-      return manager
-    }
-  })
+  if (!Vue.prototype[property]) {
+    Object.defineProperty(Vue.prototype, property, {
+      get () {
+        return manager
+      }
+    })
+  } else {
+    console.warn(`Property ${property} is already defigned in Vue prototype`)
+  }
 }
+
 // Create module definition for Vue.use()
 const plugin = {
   install
