@@ -107,12 +107,16 @@ export default class DialogManager {
     this._components[name] = { component, options }
   }
 
+  getComponentProperty (component, name) {
+    return component.options ? component.options[name] : component[name]
+  }
+
   create (component) {
     if (!component) {
       throw new Error('Component is incorrect')
     }
 
-    const layout = this.getLayout(component.layout || 'default')
+    const layout = this.getLayout(this.getComponentProperty(component, 'layout') || 'default')
     const dlg = new Dialog(component, {
       layout,
       context: this._context,
@@ -124,7 +128,7 @@ export default class DialogManager {
 
   async show (component, options = {}) {
     const dlg = this.create(component)
-    const overlayName = dlg.hasAsyncPreload ? (component.overlay || 'default') : false
+    const overlayName = dlg.hasAsyncPreload ? (this.getComponentProperty(component, 'overlay') || 'default') : false
     const overlay = overlayName && this._overlays[overlayName] && this.overlay(overlayName)
 
     overlay && overlay.show()

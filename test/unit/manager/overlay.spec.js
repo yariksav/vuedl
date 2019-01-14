@@ -36,5 +36,33 @@ describe('manager', () => {
     dialog.close()
     await Vue.nextTick()
     expect(document.body.innerHTML).toMatchSnapshot()
+    document.body.innerHTML = ''
+  })
+
+  test('Check overlay with extended component', async () => {
+    const dlg = Vue.extend({
+      template: '<p/>',
+      asyncData: sleep(10),
+      overlay: 'extended'
+    })
+
+    const overlay = Vue.extend({
+      template: '<div v-if="visible" id="overlay">extended</div>',
+      data () {
+        return {
+          visible: false
+        }
+      }
+    })
+    manager = new DialogManager({})
+    manager.overlay('extended', overlay)
+    let dialog = manager.show(dlg)
+    await Vue.nextTick()
+    expect(document.body.innerHTML).toMatchSnapshot()
+    dialog = await dialog
+    expect(dialog.element).toMatchSnapshot()
+    dialog.close()
+    await Vue.nextTick()
+    expect(document.body.innerHTML).toMatchSnapshot()
   })
 })

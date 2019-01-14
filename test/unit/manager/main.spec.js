@@ -103,6 +103,22 @@ describe('manager', () => {
     dlg.close()
   })
 
+  it('should work with extended layout components', async () => {
+    manager.layout('extended', Vue.extend({
+      props: ['prop1'],
+      template: '<p>{{prop1}}<slot/></p>'
+    }))
+
+    const dialog = Vue.extend({
+      template: '<p>extended component</p>',
+      layout: 'extended'
+    })
+    const dlg = await manager.show(dialog, { prop1: 'extended layout' })
+
+    expect(dlg.element.innerHTML).toBe('extended layout<p>extended component</p>')
+    dlg.close()
+  })
+
   // test('On hashchange', async () => {
   //   const foobar = await manager.show(FooBar, {
   //     name: 'Bar'

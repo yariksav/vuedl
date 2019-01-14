@@ -122,7 +122,8 @@ export default class Dialog {
   }
 
   get hasAsyncPreload () {
-    return this._component && (this._component.asyncData || this._component.fetch)
+    let options = this._component && (this._component.options || this._component)
+    return options && (options.asyncData || options.fetch)
   }
 
   get vm () {

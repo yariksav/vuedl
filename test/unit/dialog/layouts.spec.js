@@ -117,33 +117,4 @@ describe('dialog layouts', () => {
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })
-  /* test('Check layout slots', async () => {
-    const layout = {
-      template:
-        `<div>
-          <slot name="header"/>
-          <p>above content</p>
-          <slot/>
-          <p>below content</p>
-          <slot name="footer"/>
-        </div>`
-    }
-
-    const dialog = new Dialog({
-      template:
-      `<div>
-          <template slot="header">header</template>
-          <div slot="footer">footer content</div>
-          content
-        </div>`
-    }, {
-      layout
-    })
-    await dialog.show()
-
-    expect(dialog.element).toMatchSnapshot()
-    dialog.close()
-    await Vue.nextTick()
-    expect(document.body.innerHTML).toBe('')
-  }) */
 })

@@ -182,29 +182,31 @@ Vue.prototype.$dialog.overlay('default', MyOverlay)
 **vuedl** has implementations of confirm, alert warning, error or prompt dialog
 
 ```js
-this.$dialog.confirm('Do you really want to exit?').then(res => {
+this.$dialog.confirm({
+  text: 'Do you really want to exit?'
+}).then(res => {
 })
 ```
 ```js
-const res = await this.$dialog.warning('Do you really want to exit?')
+const res = await this.$dialog.warning({
+  text: 'Do you really want to exit?'
+})
 ...
-const res = await this.$dialog.error('Do you really want to exit?')
+const res = await this.$dialog.error({
+  text: 'Some error'
+})
 ```
 
 ```js
-let res = await this.$dialog.confirm('Do you really want to exit?', {title: 'Warning'})
+let res = await this.$dialog.confirm({
+  text: 'Do you really want to exit?', 
+  title: 'Warning'
+})
 if (res) {
   ...
 }
 ```
 *res* will be true or false
-
-You can format your message with arbitrary HTML - make sure you don't include any user-provided content here:
-
-```js
-this.$dialog.confirm('Please do not do this.<br>Do you really want to exit?'}).then(res => {
-})
-```
 
 For registering own Confirm template 
 ```javascript
