@@ -1,6 +1,6 @@
 // Import vue components
 import DialogManager from './manager'
-
+import Overlay from './components/DialogOverlay.vue'
 // install function executed by Vue.use()
 function install (Vue, options = {}) {
   if (install.installed) return
@@ -8,6 +8,7 @@ function install (Vue, options = {}) {
   const property = options.property || '$dialog'
   const manager = new DialogManager(options)
 
+  manager.overlay('default', Overlay)
   if (!Vue.prototype[property]) {
     Object.defineProperty(Vue.prototype, property, {
       get () {

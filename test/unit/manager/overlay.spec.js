@@ -36,13 +36,14 @@ describe('manager', () => {
     dialog.close()
     await Vue.nextTick()
     expect(document.body.innerHTML).toMatchSnapshot()
-    document.body.innerHTML = ''
+    manager.overlay('default').destroy()
+    expect(document.body.innerHTML).toBe('')
   })
 
   test('Check overlay with extended component', async () => {
     const dlg = Vue.extend({
       template: '<p/>',
-      asyncData: sleep(10),
+      asyncData: sleep(5),
       overlay: 'extended'
     })
 

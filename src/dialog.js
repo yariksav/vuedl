@@ -13,8 +13,8 @@ import Layoutable from './mixins/layoutable'
 
 import merge from 'lodash/merge'
 import DefaultLayout from './components/DefaultLayout.vue'
+import { ensureComponentAsyncData, hasAsyncPreload } from 'vue-asyncable'
 import {
-  ensureAsyncDatas,
   destroyVueElement,
   findContainer
 } from './utils'
@@ -51,12 +51,15 @@ export default class Dialog {
     let Component = this._component
     if (typeof Component === 'object' && !Component.options) {
       Component = Vue.extend({ ...this._component, parent: layout })
-      if (this._component.primaryKey) {
-        Component = Component.extend({ mixins: [ Recordable ] })
-      }
-      if (this.hasAsyncPreload) {
-        await ensureAsyncDatas(Component, { ...this.context, params })
-      }
+    } else {
+      Component.options.parent = layout
+    }
+    // add primary key mixin
+    if (Component.options.primaryKey) {
+      Component = Component.extend({ mixins: [ Recordable ] })
+    }
+    if (this.hasAsyncPreload) {
+      await ensureComponentAsyncData(Component, { ...this.context, params })
     }
 
     const dialog = new Component(merge({ propsData: params }, this.context, options))
@@ -122,8 +125,7 @@ export default class Dialog {
   }
 
   get hasAsyncPreload () {
-    let options = this._component && (this._component.options || this._component)
-    return options && (options.asyncData || options.fetch)
+    return this._component && hasAsyncPreload(this._component.options || this._component)
   }
 
   get vm () {

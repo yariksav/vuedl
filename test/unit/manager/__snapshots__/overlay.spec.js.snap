@@ -12,7 +12,7 @@ exports[`manager Check overlay correct work 2`] = `
 
 exports[`manager Check overlay correct work 3`] = `"<!---->"`;
 
-exports[`manager Check overlay with extended component 1`] = `"<div id=\\"overlay\\">extended</div><div class=\\"dialog-layout\\"><p></p></div>"`;
+exports[`manager Check overlay with extended component 1`] = `"<div id=\\"overlay\\">extended</div>"`;
 
 exports[`manager Check overlay with extended component 2`] = `
 <div

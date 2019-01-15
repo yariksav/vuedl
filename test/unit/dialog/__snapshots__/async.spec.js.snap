@@ -19,6 +19,11 @@ exports[`dialog asyncData and fetch Check when asyncData is promise of Promises 
   \\"simpleString\\": \\"some string\\",
   \\"simpleObject\\": {
     \\"test\\": 123456
-  }
+  },
+  \\"dataObject\\": {
+    \\"test\\": 1
+  },
+  \\"dataString\\": \\"string\\",
+  \\"dataNumber\\": 123
 }</p>"
 `;

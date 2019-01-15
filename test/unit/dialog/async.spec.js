@@ -77,18 +77,18 @@ describe('dialog asyncData and fetch', () => {
     dialog.close()
   })
 
-  test('Check asyncData callback', async () => {
-    const { dialog, element } = await mount({
-      template: '<p>{{ msg }}</p>',
-      asyncData (_, callback) {
-        setTimeout(() => {
-          callback(null, { msg: 'foo' })
-        }, 1)
-      }
-    })
-    expect(element.innerHTML).toBe('<p>foo</p>')
-    dialog.close()
-  })
+  // test('Check asyncData callback', async () => {
+  //   const { dialog, element } = await mount({
+  //     template: '<p>{{ msg }}</p>',
+  //     asyncData (_, callback) {
+  //       setTimeout(() => {
+  //         callback(null, { msg: 'foo' })
+  //       }, 1)
+  //     }
+  //   })
+  //   expect(element.innerHTML).toBe('<p>foo</p>')
+  //   dialog.close()
+  // })
 
   test('Check asyncData error', async () => {
     const dlg = new Dialog({

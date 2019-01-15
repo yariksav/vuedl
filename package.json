@@ -1,6 +1,6 @@
 {
   "name": "vuedl",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Vue dialog helper",
   "scripts": {
     "build:copy": "npm run build && bash build/copy.sh",
@@ -22,7 +22,9 @@
   "browser": "dist/vuedl.js",
   "cdn": "dist/vuedl.min.js",
   "unpkg": "dist/vuedl.min.js",
-  "dependencies": {},
+  "dependencies": {
+    "vue-asyncable": "0.0.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yariksav/vuedl.git"
