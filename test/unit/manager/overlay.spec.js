@@ -1,17 +1,9 @@
-// import Dialog from '../../../src/dialog'
 import DialogManager from '../../../src/manager'
-// import Confirm from '../../../src/components/Confirm'
-// import { wrap } from '../../utils'
-// import Returnable from '../../../src/mixins/returnable'
 import Vue from 'vue'
 import { sleep } from '../../utils'
 
 describe('manager', () => {
   let manager
-
-  // const asyncData = jest.fn((ctx) => {
-  //   return sleep(10)
-  // })
 
   const overlay = {
     template: '<div v-if="visible" id="overlay"/>',

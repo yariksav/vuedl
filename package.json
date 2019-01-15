@@ -1,6 +1,6 @@
 {
   "name": "vuedl",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Vue dialog helper",
   "scripts": {
     "build:copy": "npm run build && bash build/copy.sh",
@@ -9,7 +9,7 @@
     "build:browser": "bili --name vuedl --format umd,umd-min --external vue --global.vue \"Vue\" --plugin vue --js buble",
     "lint": "eslint --ext js --ext vue src",
     "lint:fix": "npm run lint -- --fix",
-    "prepublish": "npm run build",
+    "prepublish": "npm run test && npm run build",
     "release": "bash build/release.sh",
     "test": "jest --env=jsdom ",
     "coveralls": "jest --env=jsdom --coverage --coverageReporters=text-lcov | coveralls",
