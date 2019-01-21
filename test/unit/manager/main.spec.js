@@ -60,6 +60,41 @@ describe('manager', () => {
     expect(document.body.innerHTML).toBe('')
   })
 
+  test('Check reactives', async () => {
+    const Cmp = {
+      template: '<p>{{ a }} {{ b }}</p>',
+      data () {
+        return {
+          a: null,
+          b: null
+        }
+      },
+      created () {
+        this.$set(this, 'c', null)
+        this.$watch('a', (val) => {
+          this.c = 'foo' + val
+        })
+      },
+      watch: {
+        a (val) {
+          this.b = 'test' + val
+        }
+      }
+    }
+
+    const dlg = await manager.show(Cmp)
+    expect(dlg.showed).toBe(true)
+    expect(dlg.vmd.b).toEqual(null)
+    dlg.vmd.a = 'data'
+    await Vue.nextTick()
+    expect(dlg.vmd.b).toEqual('testdata')
+    expect(dlg.vmd.c).toEqual('foodata')
+    expect(dlg.vmd.$el.innerHTML).toEqual('data testdata')
+    dlg.close()
+    await sleep(1)
+    expect(document.body.innerHTML).toBe('')
+  })
+
   test('Check layout props', async () => {
     manager.layout('default', {
       props: ['prop1', 'prop2'],
