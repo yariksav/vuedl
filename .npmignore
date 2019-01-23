@@ -3,3 +3,4 @@ coverage
 build
 .vscode
 .trash
+*.tgz
