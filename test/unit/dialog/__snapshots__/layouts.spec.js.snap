@@ -4,9 +4,11 @@ exports[`dialog layouts Should close when in not persistent and not loading stat
 <div
   class="dialog-layout"
 >
-  <p>
-    foo
-  </p>
+  <div>
+    <p>
+      foo
+    </p>
+  </div>
 </div>
 `;
 
@@ -14,16 +16,20 @@ exports[`dialog layouts Should work with layout 1`] = `
 <div
   class="dialog-layout"
 >
-  <p>
-    foo
-  </p>
+  <div>
+    <p>
+      foo
+    </p>
+  </div>
 </div>
 `;
 
 exports[`dialog layouts Should work with layout with component property 1`] = `
 <div>
-  <p>
-    foo
-  </p>
+  <div>
+    <p>
+      foo
+    </p>
+  </div>
 </div>
 `;

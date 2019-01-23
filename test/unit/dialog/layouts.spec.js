@@ -31,7 +31,7 @@ describe('dialog layouts', () => {
 
   test('Should work with layout with component property', async () => {
     const layout = {
-      template: '<div><slot/></div>'
+      template: '<div><div ref="dialog-instance"/></div>'
     }
 
     const dialog = new Dialog({
@@ -41,7 +41,6 @@ describe('dialog layouts', () => {
     })
     await dialog.show()
     expect(dialog.element).toMatchSnapshot()
-    expect(dialog.element.textContent).toBe('foo')
     dialog.close()
   })
 
@@ -49,7 +48,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>',
       layout: {
-        template: '<div :width="getWidth"><slot/></div>'
+        template: '<div :width="getWidth"><div ref="dialog-instance"/></div>'
       }
     })
     await dialog.show()
@@ -66,7 +65,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>',
       layout: {
-        template: '<div :width="getWidth"><slot/></div>'
+        template: '<div :width="getWidth"><div ref="dialog-instance"/></div>'
       }
     })
     await dialog.show({ width: '2el' })
@@ -94,7 +93,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>',
       layout: {
-        template: '<div><slot/></div>'
+        template: '<div><div ref="dialog-instance"/></div>'
       }
     })
     await dialog.show()
@@ -109,7 +108,7 @@ describe('dialog layouts', () => {
       template: '<p>foo</p>',
       mixins: [activable],
       layout: {
-        template: '<div><slot/></div>'
+        template: '<div><div ref="dialog-instance"/></div>'
       }
     })
     await dialog.show()

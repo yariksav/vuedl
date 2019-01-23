@@ -1,19 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`manager Check layout in array 1`] = `
+exports[`manager Check layout in array 1`] = `"<span>foo bar<div><p>foo</p></div></span>"`;
+
+exports[`manager Check layout in array 2`] = `
 <p>
-  foo bar
-  <p>
-    foo
-  </p>
+  <span>
+    foo bar
+    <div>
+      <p>
+        foo
+      </p>
+    </div>
+  </span>
 </p>
 `;
 
-exports[`manager Check layout props 1`] = `
+exports[`manager Check layout props 1`] = `"<span>foo bar<div><p>foo</p></div></span>"`;
+
+exports[`manager Check layout props 2`] = `
 <p>
-  foo bar
-  <p>
-    foo
-  </p>
+  <span>
+    foo bar
+    <div>
+      <p>
+        foo
+      </p>
+    </div>
+  </span>
 </p>
 `;
+
+exports[`manager should work with extended layout components 1`] = `"<span>extended layout<div><p>extended component</p></div></span>&lt;"`;

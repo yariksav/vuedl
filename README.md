@@ -87,7 +87,7 @@ Vue.prototype.$dialog.layout('default', MyLayout)
 Example of the layout template
 ```html
   <v-dialog v-model="isActive" :max-width="width">
-    <slot/>
+    <div ref="dialog-instance"/>
   </v-dialog>
 ```
 **vuedl** module will put in layout component mixin with params:

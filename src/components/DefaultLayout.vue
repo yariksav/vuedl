@@ -1,6 +1,6 @@
 <template>
   <div class="dialog-layout">
-    <slot />
+    <div ref="dialog-instance" />
   </div>
 </template>
 

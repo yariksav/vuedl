@@ -7,7 +7,7 @@ test('Check is not isNewRecord', async () => {
     primaryKey: 'id'
   })
   await dlg.show({ id: 123 })
-  expect(dlg.element.innerHTML).toBe('<p>false</p>')
+  expect(dlg.element.innerHTML).toMatchSnapshot()
   dlg.close()
 })
 
@@ -17,7 +17,7 @@ test('Check is isNewRecord', async () => {
     primaryKey: 'id'
   })
   await dlg.show()
-  expect(dlg.element.innerHTML).toBe('<p>true</p>')
+  expect(dlg.element.innerHTML).toMatchSnapshot()
   dlg.close()
 })
 

@@ -66,9 +66,22 @@ export default class Dialog {
 
     // mounting
     dialog.$mount()
-    layout.$slots.default = dialog._vnode
+    // layout.$slots.default = dialog._vnode
+    //   dialog.$on('hook:updated', () => {
+    //     layout.$slots.default = dialog._vnode
+    //     layout.$forceUpdate()
+    //   })
+    // }
     layout.$mount()
-
+    const ref = layout.$refs['dialog-instance']
+    if (ref) {
+      ref.$el ? ref.$el.appendChild(dialog.$el) : ref.appendChild(dialog.$el)
+    } else {
+      // if (process.env.NODE_ENV !== 'production') {
+      //   console.warn('Slot in layouts is deprecated. Please use <div ref="dialog-instance"/> instead')
+      // }
+      layout.$slots.default = dialog._vnode
+    }
     layout.$on('hook:destroyed', this._onDestroyed.bind(this))
     layout.$on('submit', this.onReturn.bind(this))
     dialog.$on('submit', this.onReturn.bind(this))

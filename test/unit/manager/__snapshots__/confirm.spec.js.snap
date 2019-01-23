@@ -4,41 +4,43 @@ exports[`manager Check confirm 1`] = `
 <div
   class="dialog-layout"
 >
-  <div
-    class="confirm-box"
-  >
-    <!---->
-     
+  <div>
     <div
-      class="confirm-message"
+      class="confirm-box"
     >
-      test
-    </div>
-     
-    <div
-      class="confirm-buttons"
-    >
+      <!---->
+       
       <div
-        class="column"
+        class="confirm-message"
       >
-        <span>
-          <button
-            action-key="ok"
-            class="button"
-          >
-            
+        test
+      </div>
+       
+      <div
+        class="confirm-buttons"
+      >
+        <div
+          class="column"
+        >
+          <span>
+            <button
+              action-key="ok"
+              class="button"
+            >
+              
   ok
 
-          </button>
-          <button
-            action-key="cancel"
-            class="button"
-          >
-            
+            </button>
+            <button
+              action-key="cancel"
+              class="button"
+            >
+              
   cancel
 
-          </button>
-        </span>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -49,41 +51,43 @@ exports[`manager Check confirm with btns true|false 1`] = `
 <div
   class="dialog-layout"
 >
-  <div
-    class="confirm-box"
-  >
-    <!---->
-     
+  <div>
     <div
-      class="confirm-message"
+      class="confirm-box"
     >
-      test
-    </div>
-     
-    <div
-      class="confirm-buttons"
-    >
+      <!---->
+       
       <div
-        class="column"
+        class="confirm-message"
       >
-        <span>
-          <button
-            action-key="true"
-            class="button"
-          >
-            
+        test
+      </div>
+       
+      <div
+        class="confirm-buttons"
+      >
+        <div
+          class="column"
+        >
+          <span>
+            <button
+              action-key="true"
+              class="button"
+            >
+              
   Yes
 
-          </button>
-          <button
-            action-key="false"
-            class="button"
-          >
-            
+            </button>
+            <button
+              action-key="false"
+              class="button"
+            >
+              
   No
 
-          </button>
-        </span>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -94,41 +98,43 @@ exports[`manager Check confirm with handle functions 1`] = `
 <div
   class="dialog-layout"
 >
-  <div
-    class="confirm-box"
-  >
-    <!---->
-     
+  <div>
     <div
-      class="confirm-message"
+      class="confirm-box"
     >
-      test
-    </div>
-     
-    <div
-      class="confirm-buttons"
-    >
+      <!---->
+       
       <div
-        class="column"
+        class="confirm-message"
       >
-        <span>
-          <button
-            action-key="false"
-            class="button"
-          >
-            
+        test
+      </div>
+       
+      <div
+        class="confirm-buttons"
+      >
+        <div
+          class="column"
+        >
+          <span>
+            <button
+              action-key="false"
+              class="button"
+            >
+              
   No
 
-          </button>
-          <button
-            action-key="true"
-            class="button"
-          >
-            
+            </button>
+            <button
+              action-key="true"
+              class="button"
+            >
+              
   Yes
 
-          </button>
-        </span>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -139,43 +145,45 @@ exports[`manager Check confirm with handle functions 2`] = `
 <div
   class="dialog-layout"
 >
-  <div
-    class="confirm-box"
-  >
-    <!---->
-     
+  <div>
     <div
-      class="confirm-message"
+      class="confirm-box"
     >
-      test
-    </div>
-     
-    <div
-      class="confirm-buttons"
-    >
+      <!---->
+       
       <div
-        class="column"
+        class="confirm-message"
       >
-        <span>
-          <button
-            action-key="false"
-            class="button"
-            disabled="disabled"
-          >
-            
+        test
+      </div>
+       
+      <div
+        class="confirm-buttons"
+      >
+        <div
+          class="column"
+        >
+          <span>
+            <button
+              action-key="false"
+              class="button"
+              disabled="disabled"
+            >
+              
   No
 
-          </button>
-          <button
-            action-key="true"
-            class="button loading"
-            disabled="disabled"
-          >
-            
+            </button>
+            <button
+              action-key="true"
+              class="button loading"
+              disabled="disabled"
+            >
+              
   Yes
 
-          </button>
-        </span>
+            </button>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -186,6 +194,8 @@ exports[`manager returnable 1`] = `
 <div
   class="dialog-layout"
 >
-  <p />
+  <div>
+    <p />
+  </div>
 </div>
 `;

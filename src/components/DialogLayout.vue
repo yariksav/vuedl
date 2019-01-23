@@ -2,7 +2,7 @@
   <transition name="vdialog-modal">
     <div class="vdialog-modal-mask" @click.self.prevent.stop="dismiss">
         <div class="vdialog-modal-container" :style="{ 'max-width': getWidth }">
-          <slot />
+          <div ref="dialog-instance" />
         </div>
     </div>
   </transition>

@@ -28,7 +28,7 @@ describe('dialog asyncData and fetch', () => {
 
     expect(asyncData).toHaveBeenCalledTimes(1)
     expect(dialog.vmd.$data).toHaveProperty('msg', 'foo')
-    expect(element.innerHTML).toBe('<p>foo</p>')
+    expect(element.innerHTML).toMatchSnapshot()
     dialog.close()
   })
 
@@ -73,7 +73,7 @@ describe('dialog asyncData and fetch', () => {
       }
     })
 
-    expect(element.innerHTML).toBe('<p>foo</p>')
+    expect(element.innerHTML).toMatchSnapshot()
     dialog.close()
   })
 
@@ -133,7 +133,7 @@ describe('dialog asyncData and fetch', () => {
     expect(asyncData).toHaveBeenCalledTimes(1)
     expect(fetch).toHaveBeenCalledTimes(1)
     dlg.wait().then(fnWait)
-    expect(dlg.element.innerHTML).toBe('<p>foo bar</p>')
+    expect(dlg.element.innerHTML).toMatchSnapshot()
     dlg.close()
     await Vue.nextTick()
     expect(fnWait).toHaveBeenCalledTimes(1)
@@ -143,7 +143,7 @@ describe('dialog asyncData and fetch', () => {
     dlg.wait().then(fnWait)
     expect(asyncData).toHaveBeenCalledTimes(2)
     expect(fetch).toHaveBeenCalledTimes(2)
-    expect(dlg.element.innerHTML).toBe('<p>foo bar</p>')
+    expect(dlg.element.innerHTML).toMatchSnapshot()
     dlg.close()
     await Vue.nextTick()
     expect(fnWait).toHaveBeenCalledTimes(3)
@@ -152,7 +152,7 @@ describe('dialog asyncData and fetch', () => {
     expect(asyncData).toHaveBeenCalledTimes(3)
     expect(fetch).toHaveBeenCalledTimes(3)
     dlg.wait().then(fnWait)
-    expect(dlg.element.innerHTML).toBe('<p>foo bar</p>')
+    expect(dlg.element.innerHTML).toMatchSnapshot()
     dlg.close()
     await Vue.nextTick()
     expect(fnWait).toHaveBeenCalledTimes(4)

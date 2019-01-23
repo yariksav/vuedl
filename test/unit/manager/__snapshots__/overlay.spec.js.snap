@@ -6,7 +6,9 @@ exports[`manager Check overlay correct work 2`] = `
 <div
   class="dialog-layout"
 >
-  <p />
+  <div>
+    <p />
+  </div>
 </div>
 `;
 
@@ -18,7 +20,9 @@ exports[`manager Check overlay with extended component 2`] = `
 <div
   class="dialog-layout"
 >
-  <p />
+  <div>
+    <p />
+  </div>
 </div>
 `;
 
