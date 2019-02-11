@@ -4,6 +4,7 @@ export default {
   name: 'Layoutable',
 
   mixins: [ Activable ],
+  inheritAttrs: false,
 
   props: {
     width: {

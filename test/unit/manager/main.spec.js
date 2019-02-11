@@ -117,7 +117,7 @@ describe('manager', () => {
   test('Check layout props', async () => {
     manager.layout('default', {
       props: ['prop1', 'prop2'],
-      template: '<p><span>{{prop1}} {{prop2}}<div ref="dialog-instance"/></span></p>'
+      template: '<p><span>{{prop1}} {{prop2}}<dialog-child v-bind="$options.propsData" ref="dialog" /></span></p>'
     },
     {
       prop1: 'Overrided',
@@ -139,7 +139,7 @@ describe('manager', () => {
   test('Check layout in array', async () => {
     manager.layout('default', {
       props: ['prop1', 'prop2'],
-      template: '<p><span>{{prop1}} {{prop2}}<div ref="dialog-instance"/></span></p>'
+      template: '<p>{{prop1}} {{prop2}}<dialog-child v-bind="$options.propsData" ref="dialog" /></p>'
     },
     {
       prop1: 'Overrided1',
@@ -160,7 +160,7 @@ describe('manager', () => {
   it('should work with extended layout components', async () => {
     manager.layout('extended', Vue.extend({
       props: ['prop1'],
-      template: '<p><span>{{prop1}}<div ref="dialog-instance"></div></span><</p>'
+      template: '<p>{{prop1}}<dialog-child v-bind="$options.propsData" ref="dialog" /><</p>'
     }))
 
     const dialog = Vue.extend({

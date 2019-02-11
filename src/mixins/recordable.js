@@ -1,10 +1,12 @@
 export default {
   computed: {
     $parameters  () {
-      return this.$options.propsData
+      return this.$attrs || this.$options.propsData || this.$props || {}
     },
     isNewRecord: function () {
-      return (!this.$options.primaryKey || !this.$options.propsData) || !this.$options.propsData[this.$options.primaryKey]
+      // console.log(this.$attrs, this.$props)
+      // const data = this.$attrs || this.$options.propsData || this.$props
+      return !this.$parameters || !this.$parameters[this.$options.primaryKey]
     }
   }
 }

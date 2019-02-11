@@ -37,6 +37,6 @@ test('Check parameters', async () => {
   })
   const params = { id: 1, name: 'foo' }
   await dlg.show(params)
-  expect(dlg.vmd.$parameters).toBe(params)
+  expect(dlg.vmd.$parameters).toMatchObject(params)
   dlg.close()
 })

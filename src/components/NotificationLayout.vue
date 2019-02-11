@@ -8,7 +8,7 @@
       @mouseleave="startTimer"
       role="alert"
     >
-      <div ref="dialog-instance" />
+      <dialog-child v-bind="$options.propsData" ref="dialog" />
       <div
         class="vuedl-notification__closeBtn"
         v-if="showClose"

@@ -1,6 +1,6 @@
 <template>
   <div class="dialog-layout">
-    <div ref="dialog-instance" />
+    <dialog-child v-bind="$options.propsData" ref="dialog" />
   </div>
 </template>
 

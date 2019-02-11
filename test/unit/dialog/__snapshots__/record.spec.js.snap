@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Check is isNewRecord 1`] = `"<div><p>true</p></div>"`;
+exports[`Check is isNewRecord 1`] = `"<p>true</p>"`;
 
-exports[`Check is not isNewRecord 1`] = `"<div><p>false</p></div>"`;
+exports[`Check is not isNewRecord 1`] = `"<p>false</p>"`;

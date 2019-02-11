@@ -31,7 +31,7 @@ describe('dialog layouts', () => {
 
   test('Should work with layout with component property', async () => {
     const layout = {
-      template: '<div><div ref="dialog-instance"/></div>'
+      template: '<div><dialog-child v-bind="$options.propsData" ref="dialog" /></div>'
     }
 
     const dialog = new Dialog({
@@ -48,7 +48,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>',
       layout: {
-        template: '<div :width="getWidth"><div ref="dialog-instance"/></div>'
+        template: '<div :width="getWidth"><dialog-child v-bind="$options.propsData" ref="dialog" /></div>'
       }
     })
     await dialog.show()
@@ -65,7 +65,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>',
       layout: {
-        template: '<div :width="getWidth"><div ref="dialog-instance"/></div>'
+        template: '<div :width="getWidth"><dialog-child v-bind="$options.propsData" ref="dialog" /></div>'
       }
     })
     await dialog.show({ width: '2el' })
@@ -93,7 +93,7 @@ describe('dialog layouts', () => {
     const dialog = new Dialog({
       template: '<p>foo</p>',
       layout: {
-        template: '<div><div ref="dialog-instance"/></div>'
+        template: '<div><dialog-child v-bind="$options.propsData" ref="dialog" /></div>'
       }
     })
     await dialog.show()
@@ -108,7 +108,7 @@ describe('dialog layouts', () => {
       template: '<p>foo</p>',
       mixins: [activable],
       layout: {
-        template: '<div><div ref="dialog-instance"/></div>'
+        template: '<div><dialog-child v-bind="$options.propsData" ref="dialog" /></div>'
       }
     })
     await dialog.show()

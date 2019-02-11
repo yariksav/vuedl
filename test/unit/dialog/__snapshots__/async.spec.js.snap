@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dialog asyncData and fetch Check asyncData 1`] = `"<div><p>foo</p></div>"`;
+exports[`dialog asyncData and fetch Check asyncData 1`] = `"<p>foo</p>"`;
 
-exports[`dialog asyncData and fetch Check asyncData await 1`] = `"<div><p>foo</p></div>"`;
+exports[`dialog asyncData and fetch Check asyncData await 1`] = `"<p>foo</p>"`;
 
-exports[`dialog asyncData and fetch Check many times usage 1`] = `"<div><p>foo bar</p></div>"`;
+exports[`dialog asyncData and fetch Check many times usage 1`] = `"<p>foo bar</p>"`;
 
-exports[`dialog asyncData and fetch Check many times usage 2`] = `"<div><p>foo bar</p></div>"`;
+exports[`dialog asyncData and fetch Check many times usage 2`] = `"<p>foo bar</p>"`;
 
-exports[`dialog asyncData and fetch Check many times usage 3`] = `"<div><p>foo bar</p></div>"`;
+exports[`dialog asyncData and fetch Check many times usage 3`] = `"<p>foo bar</p>"`;
 
 exports[`dialog asyncData and fetch Check when asyncData is object of Promises 1`] = `
-"<div><p>{
+"<p>{
   \\"simpleString\\": \\"some string\\",
   \\"simpleObject\\": {
     \\"test\\": 123456
@@ -21,11 +21,11 @@ exports[`dialog asyncData and fetch Check when asyncData is object of Promises 1
   },
   \\"dataString\\": \\"string\\",
   \\"dataNumber\\": 123
-}</p></div>"
+}</p>"
 `;
 
 exports[`dialog asyncData and fetch Check when asyncData is promise of Promises 1`] = `
-"<div><p>{
+"<p>{
   \\"simpleString\\": \\"some string\\",
   \\"simpleObject\\": {
     \\"test\\": 123456
@@ -35,5 +35,5 @@ exports[`dialog asyncData and fetch Check when asyncData is promise of Promises 
   },
   \\"dataString\\": \\"string\\",
   \\"dataNumber\\": 123
-}</p></div>"
+}</p>"
 `;
