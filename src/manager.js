@@ -11,28 +11,6 @@ import Vue from 'vue'
 import Dialog from './dialog'
 import Overlay from './overlay'
 
-const proxyHandler = {
-
-  get (target, name) {
-    /**
-     * if node is inspecting then stick to target properties
-     */
-    if (typeof (name) === 'symbol' || name === 'inspect') {
-      return target[name]
-    }
-
-    if (target[name]) {
-      return target[name]
-    }
-
-    if (target._components[name]) {
-      return target.createFunctionWrapper(name)
-    }
-
-    return target[name]
-  }
-}
-
 export default class DialogManager {
   constructor ({ context, container } = {}) {
     this._context = context || {}
@@ -43,7 +21,6 @@ export default class DialogManager {
     this._container = container
     this._emitter = new Vue({})
     this._instances = []
-    return new Proxy(this, proxyHandler)
   }
 
   get context () {
@@ -105,6 +82,9 @@ export default class DialogManager {
       return this._components[name]
     }
     this._components[name] = { component, options }
+    Object.defineProperty(this, name, {
+      get: () => this.createFunctionWrapper(name)
+    })
   }
 
   getComponentProperty (component, name) {
