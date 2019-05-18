@@ -10,8 +10,6 @@
 import Vue from 'vue'
 import Recordable from './mixins/recordable'
 import Layoutable from './mixins/layoutable'
-
-import merge from 'lodash/merge'
 import DefaultLayout from './components/DefaultLayout.vue'
 import { ensureComponentAsyncData, hasAsyncPreload } from 'vue-asyncable'
 import {
@@ -63,9 +61,12 @@ export default class Dialog {
 
     Component.options.inheritAttrs = false
 
-    const layout = new LayoutCtor(merge({
-      propsData: { ...this._layout.options, ...params }
-    }, this.context, options))
+    const propsData = { ...this._layout.options, ...params, ...(options && options.propsData) }
+    const layout = new LayoutCtor({
+      ...this.context,
+      ...options,
+      propsData
+    })
 
     layout.$mount()
     const dialog = layout.$refs.dialog
