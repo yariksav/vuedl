@@ -1,6 +1,6 @@
 {
   "name": "vuedl",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Vue dialog helper",
   "scripts": {
     "build:copy": "npm run build && bash build/copy.sh",
@@ -58,7 +58,6 @@
     "eslint-plugin-vue": "^5.1.0",
     "jest": "^24.1.0",
     "lodash": "^4.17.11",
-    "merge": ">=1.2.1",
     "rollup-plugin-vue": "^4.7.1",
     "vue": "^2.6.5",
     "vue-jest": "^3.0.3",
