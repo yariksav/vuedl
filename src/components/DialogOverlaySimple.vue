@@ -1,7 +1,6 @@
 <template>
   <transition name="opacity">
     <div
-
       v-if="visible"
       aria-label="loading"
       :style="{zIndex: zIndex}"
@@ -27,8 +26,7 @@ export default {
 }
 </script>
 <style>
-.vc-loading-overlay
-{
+.vc-loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -38,35 +36,29 @@ export default {
   cursor: wait;
 }
 
-.vc-loading-overlay.vc-light
-{
+.vc-loading-overlay.vc-light {
   background: rgba(0, 0, 0, .5);
 }
 
 .opacity-enter,
-.opacity-leave-to
-{
+.opacity-leave-to {
   opacity: 0.5;
 }
 
-.opacity-enter-active
-{
+.opacity-enter-active {
   transition: opacity .3s ease;
 }
-.opacity-leave-active
-{
+
+.opacity-leave-active {
   transition: all 0.2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 
-@keyframes rotating
-{
-  from
-  {
+@keyframes rotating {
+  from {
     transform: rotate(0deg);
   }
 
-  to
-  {
+  to {
     transform: rotate(360deg);
   }
 }

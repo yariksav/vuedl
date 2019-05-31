@@ -21,7 +21,7 @@ let seed = 1
 export default class Dialog {
   constructor (component, { layout, container } = {}) {
     if (!component) {
-      throw Error('Component was not setted')
+      throw Error('Component was not set')
     }
     this._layout = layout || { component: DefaultLayout, options: {} }
     this._component = component

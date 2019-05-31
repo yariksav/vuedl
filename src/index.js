@@ -1,6 +1,7 @@
 // Import vue components
 import DialogManager from './manager'
 import Overlay from './components/DialogOverlay.vue'
+
 // install function executed by Vue.use()
 function install (Vue, options = {}) {
   if (install.installed) return
@@ -16,7 +17,7 @@ function install (Vue, options = {}) {
       }
     })
   } else {
-    console.warn(`Property ${property} is already defigned in Vue prototype`)
+    console.warn(`Property ${property} is already defined in Vue prototype`)
   }
 }
 

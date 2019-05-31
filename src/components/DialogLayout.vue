@@ -1,15 +1,14 @@
 <template>
   <transition name="vdialog-modal">
     <div class="vdialog-modal-mask" @click.self.prevent.stop="dismiss">
-        <div class="vdialog-modal-container" :style="{ 'max-width': getWidth }">
-          <dialog-child v-bind="$options.propsData" ref="dialog" />
-        </div>
+      <div class="vdialog-modal-container" :style="{ 'max-width': getWidth }">
+        <dialog-child v-bind="$options.propsData" ref="dialog" />
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
-
 export default {
   props: {
     width: Number,
