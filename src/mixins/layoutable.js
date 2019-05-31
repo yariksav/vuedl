@@ -2,7 +2,6 @@ import Activable from './activable'
 
 export default {
   name: 'Layoutable',
-
   mixins: [ Activable ],
   inheritAttrs: false,
 
@@ -54,6 +53,7 @@ export default {
       this.isActive = false
     }
   },
+  
   beforeDestroy () {
     if (typeof this.$el.remove === 'function') {
       this.$el.remove()

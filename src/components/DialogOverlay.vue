@@ -50,7 +50,6 @@ export default {
   width: 100%;
   height: 100%;
   background: radial-gradient(rgba(112, 112, 112, 0.4), rgba(50, 50, 50, .8));
-  background: -webkit-radial-gradient(rgba(112, 112, 112, 0.4), rgba(50, 50, 50, .8));
 }
 
 /* :not(:required) hides these rules from IE9 and below */

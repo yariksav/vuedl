@@ -91,7 +91,7 @@ export default {
     },
     keydown (e) {
       if (e.keyCode === 46 || e.keyCode === 8) {
-        this.clearTimer() // detele key
+        this.clearTimer() // delete key
       } else if (e.keyCode === 27) { // esc key
         this.close()
       } else {
