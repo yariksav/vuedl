@@ -13,8 +13,8 @@
     </div>
   </div>
 </template>
-<script>
 
+<script>
 import Confirmable from '../mixins/confirmable'
 import DialogActions from './DialogActions.vue'
 
@@ -25,7 +25,6 @@ export default {
   layout: [ 'default', { width: 450 } ],
   mixins: [ Confirmable ]
 }
-
 </script>
 
 <style>

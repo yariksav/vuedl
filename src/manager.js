@@ -109,7 +109,6 @@ export default class DialogManager {
   async show (component, options = {}) {
     const dlg = this.create(component)
     const overlayName = dlg.hasAsyncPreload ? (this.getComponentProperty(component, 'overlay') || 'default') : false
-
     const overlay = overlayName && this._overlays[overlayName] && this.overlay(overlayName)
 
     overlay && overlay.show()
