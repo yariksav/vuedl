@@ -31,19 +31,24 @@ export default {
   .confirm-box {
     background: #ffffff;
   }
+
   .confirm-box .confirm-title {
     padding: 14px
   }
+
   .confirm-box .confirm-title .title {
-    font-size: 24px
+    font-size: 24px;
   }
+
   .confirm-box .confirm-message {
     padding: 0 20px;
   }
+
   .confirm-box .confirm-buttons {
     text-align:  right;
     padding: 10px 20px;
   }
+
   /* .confirm-box .confirm-buttons .button {
     font-size: 20px;
     padding-left: 20px;

@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     width: Number,

@@ -9,6 +9,7 @@
     </div>
   </transition>
 </template>
+
 <script>
 export default {
   name: 'VDialogOverlay',
@@ -24,6 +25,7 @@ export default {
   }
 }
 </script>
+
 <style>
 /* Absolute Center Spinner */
 .dialog-overlay-loading {
