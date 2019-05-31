@@ -90,7 +90,7 @@ export default {
   .vuedl-notification-fade-leave-active {
     opacity: 0;
   }
-  
+
   @media screen and (max-width: 450px) {
     .vuedl-notification {
       left: 8px !important;

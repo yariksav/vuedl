@@ -53,7 +53,7 @@ export default {
       this.isActive = false
     }
   },
-  
+
   beforeDestroy () {
     if (typeof this.$el.remove === 'function') {
       this.$el.remove()
