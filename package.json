@@ -1,6 +1,6 @@
 {
   "name": "vuedl",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Vue dialog helper",
   "scripts": {
     "build:copy": "npm run build && bash build/copy.sh",
@@ -14,7 +14,10 @@
     "test": "jest --env=jsdom ",
     "coveralls": "jest --env=jsdom --coverage --coverageReporters=text-lcov | coveralls",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-flag.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-flag.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-flag.min.js"
   },
   "main": "dist/vuedl.cjs.js",
   "module": "dist/vuedl.esm.js",
@@ -58,6 +61,9 @@
     "eslint-plugin-vue": "^5.1.0",
     "jest": "^24.1.0",
     "lodash": "^4.17.11",
+    "rollup-plugin-async": "^1.2.0",
+    "rollup-plugin-regenerator": "^0.6.0",
+    "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^4.7.1",
     "vue": "^2.6.5",
     "vue-jest": "^3.0.3",

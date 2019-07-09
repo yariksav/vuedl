@@ -14,7 +14,7 @@ export default {
 
   props: {
     actions: {
-      type: [Array, Object],
+      type: [Array, Object, Function],
       default: () => []
     },
     handle: Function,
@@ -24,8 +24,9 @@ export default {
   computed: {
     actionlist () {
       const actions = []
-      for (let key in this.actions) {
-        let action = this.actions[key]
+      const acts = typeof this.actions === 'function' ? this.actions(this) : (this.actions || [])
+      for (let key in acts) {
+        let action = acts[key]
         if (typeof action === 'string') {
           action = { text: action }
         }
@@ -92,7 +93,7 @@ export default {
         this.loadingAction = action.key
         this.setLoadingState(true)
         try {
-          let ret = await handle(this.params)
+          let ret = await handle(this.params, action)
           this.setLoadingState(false)
           if (ret !== false && closable) {
             this.return(ret || action.key)

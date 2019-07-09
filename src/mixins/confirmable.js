@@ -6,14 +6,14 @@ export default {
       type: String
     },
     text: {
-      type: [String, Function],
+      type: [ String, Function ],
       reqiured: true
     },
     title: {
       type: String
     },
     actions: {
-      type: [Array, Object]
+      type: [ Array, Object, Function ]
     }
   }
 }
