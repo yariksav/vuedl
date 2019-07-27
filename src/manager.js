@@ -106,18 +106,18 @@ export default class DialogManager {
     return dlg
   }
 
-  async show (component, options = {}) {
+  async show (component, params = {}) {
     const dlg = this.create(component)
     const overlayName = dlg.hasAsyncPreload ? (this.getComponentProperty(component, 'overlay') || 'default') : false
     const overlay = overlayName && this._overlays[overlayName] && this.overlay(overlayName)
 
     overlay && overlay.show()
     try {
-      await dlg.show(options)
+      await dlg.show(params)
       this._emitter.$emit('shown', { dialog: dlg })
       overlay && overlay.hide()
       dlg.onDestroyed = this.onDialogDestroyed.bind(this)
-      return options.waitForResult ? dlg.wait() : dlg
+      return params.waitForResult ? dlg.wait() : dlg
     } catch (e) {
       this._emitter.$emit('error', { error: e, dialog: dlg })
       overlay && overlay.hide()

@@ -81,7 +81,7 @@ export default class Dialog {
     this._vm = layout
     this._vm._dialogInstance = dialog
     this._vmDialog = dialog
-    this.container = options.container ? (findContainer(options.container)) : this.container
+    this.container = params.container ? (findContainer(params.container)) : this.container
     this.container.appendChild(this.element)
     return this
   }

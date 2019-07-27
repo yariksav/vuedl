@@ -1,8 +1,9 @@
 {
   "name": "vuedl",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Vue dialog helper",
   "scripts": {
+    "_build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:copy": "npm run build && bash build/copy.sh",
     "build": "npm run lint && npm run build:module && npm run build:browser",
     "build:module": "bili --name vuedl --format cjs,es --plugin vue --js buble",
@@ -15,14 +16,12 @@
     "coveralls": "jest --env=jsdom --coverage --coverageReporters=text-lcov | coveralls",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-flag.umd.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-flag.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-flag.min.js"
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuedl.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuedl.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuedl.min.js"
   },
-  "main": "dist/vuedl.cjs.js",
+  "main": "dist/vuedl.umd.js",
   "module": "dist/vuedl.esm.js",
-  "browser": "dist/vuedl.js",
-  "cdn": "dist/vuedl.min.js",
   "unpkg": "dist/vuedl.min.js",
   "dependencies": {
     "vue-asyncable": "^0.2.0"
@@ -61,10 +60,13 @@
     "eslint-plugin-vue": "^5.1.0",
     "jest": "^24.1.0",
     "lodash": "^4.17.11",
+    "rollup": "^1.16.7",
     "rollup-plugin-async": "^1.2.0",
+    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-regenerator": "^0.6.0",
+    "rollup-plugin-uglify": "^6.0.2",
     "rollup-plugin-uglify-es": "0.0.1",
-    "rollup-plugin-vue": "^4.7.1",
+    "rollup-plugin-vue": "^4.7.2",
     "vue": "^2.6.5",
     "vue-jest": "^3.0.3",
     "vue-template-compiler": "^2.6.5",
