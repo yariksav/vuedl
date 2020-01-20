@@ -22,8 +22,8 @@ export default {
   components: {
     DialogActions
   },
-  layout: [ 'default', { width: 450 } ],
-  mixins: [ Confirmable ]
+  layout: ['default', { width: 450 }],
+  mixins: [Confirmable]
 }
 </script>
 

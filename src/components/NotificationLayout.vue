@@ -23,7 +23,7 @@
 import Notifiable from '../mixins/notifiable'
 
 export default {
-  mixins: [ Notifiable ],
+  mixins: [Notifiable],
   props: {
     width: {
       type: Number,

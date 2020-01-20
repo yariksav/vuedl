@@ -1,10 +1,9 @@
-
 import Returnable from './returnable'
 
 export default {
   name: 'Actionable',
 
-  mixins: [ Returnable ],
+  mixins: [Returnable],
 
   data () {
     return {
@@ -25,7 +24,7 @@ export default {
     actionlist () {
       const actions = []
       const acts = typeof this.actions === 'function' ? this.actions(this) : (this.actions || [])
-      for (let key in acts) {
+      for (const key in acts) { // eslint-disable-line
         let action = acts[key]
         if (typeof action === 'string') {
           action = { text: action }
@@ -93,14 +92,14 @@ export default {
         this.loadingAction = action.key
         this.setLoadingState(true)
         try {
-          let ret = await handle(this.params, action)
+          const ret = await handle(this.params, action)
           this.setLoadingState(false)
           if (ret !== false && closable) {
             this.return(ret || action.key)
           }
         } catch (e) {
           this.setLoadingState(false)
-          console.log('error', e) // TODO
+          console.error('error', e) // TODO
           throw e
         }
       } else {

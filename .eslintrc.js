@@ -17,10 +17,8 @@ module.exports = {
     'jest'
   ],
   rules: {
-    "jest": true,
-    ident: false,
-    'no-debugger': 'off',
-    'no-console': 'off',
+    'no-debugger': 'warn',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
     'vue/max-attributes-per-line': 'off',
     'vue/html-indent': 'off',
     'vue/require-default-prop': 'off',

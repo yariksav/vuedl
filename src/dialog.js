@@ -45,14 +45,14 @@ export default class Dialog {
     }
     // add primary key mixin
     if (Component.options.primaryKey) {
-      Component = Component.extend({ mixins: [ Recordable ] })
+      Component = Component.extend({ mixins: [Recordable] })
     }
     if (this.hasAsyncPreload) {
       await ensureComponentAsyncData(Component, { ...this.context, params })
     }
     // create layout
     let LayoutCtor = Vue.extend({
-      mixins: [ Layoutable ],
+      mixins: [Layoutable],
       components: {
         'dialog-child': Component
       }

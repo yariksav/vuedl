@@ -33,7 +33,7 @@ export default class DialogManager {
 
   getLayout (layout) {
     if (typeof layout === 'function') {
-      let options = layout.call(this._context)
+      const options = layout.call(this._context)
       layout = this._layouts[options.name || 'default']
       return { ...layout, ...{ options } }
     }

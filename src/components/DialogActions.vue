@@ -22,7 +22,7 @@ export default {
   components: {
     DialogAction
   },
-  mixins: [ Actionable ],
+  mixins: [Actionable],
   props: {
     passive: Boolean
   },

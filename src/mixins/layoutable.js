@@ -2,12 +2,12 @@ import Activable from './activable'
 
 export default {
   name: 'Layoutable',
-  mixins: [ Activable ],
+  mixins: [Activable],
   inheritAttrs: false,
 
   props: {
     width: {
-      type: [ String, Number ],
+      type: [String, Number],
       default: () => 450
     },
     persistent: Boolean
