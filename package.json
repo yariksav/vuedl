@@ -3,11 +3,10 @@
   "version": "0.3.7",
   "description": "Vue dialog helper",
   "scripts": {
-    "_build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:copy": "npm run build && bash build/copy.sh",
     "build": "npm run lint && npm run build:module && npm run build:browser",
-    "build:module": "bili --name vuedl --format cjs,es --plugin vue --js buble",
-    "build:browser": "bili --name vuedl --format umd,umd-min --external vue --global.vue \"Vue\" --plugin vue --js buble",
+    "build:module": "bili --format cjs,es",
+    "build:browser": "bili --format umd,umd-min",
     "lint": "eslint --ext js --ext vue src",
     "lint:fix": "npm run lint -- --fix",
     "prepublish": "npm run test && npm run build",
@@ -20,9 +19,9 @@
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuedl.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuedl.min.js"
   },
-  "main": "dist/vuedl.umd.js",
-  "module": "dist/vuedl.esm.js",
-  "unpkg": "dist/vuedl.min.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.umd.min.js",
   "dependencies": {
     "vue-asyncable": "^0.2.0"
   },
