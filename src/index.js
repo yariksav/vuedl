@@ -14,7 +14,8 @@ function install (Vue, options = {}) {
     Object.defineProperty(Vue.prototype, property, {
       get () {
         return manager
-      }
+      },
+      configurable: true
     })
   } else {
     console.warn(`Property ${property} is already defined in Vue prototype`)

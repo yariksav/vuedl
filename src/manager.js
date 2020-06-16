@@ -83,7 +83,8 @@ export default class DialogManager {
     }
     this._components[name] = { component, options }
     Object.defineProperty(this, name, {
-      get: () => this.createFunctionWrapper(name)
+      get: () => this.createFunctionWrapper(name),
+      configurable: true
     })
   }
 
