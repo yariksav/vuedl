@@ -26,7 +26,7 @@ export default {
       const acts = typeof this.actions === 'function' ? this.actions(this) : (this.actions || [])
       for (const key in acts) { // eslint-disable-line
         let action = acts[key]
-        if (typeof action === 'string') {
+        if (['string', 'boolean'].includes(typeof action)) {
           action = { text: action }
         }
         if (!action.key) {

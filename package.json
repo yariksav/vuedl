@@ -1,6 +1,6 @@
 {
   "name": "vuedl",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Vue dialog helper",
   "scripts": {
     "build:copy": "npm run build && bash build/copy.sh",
