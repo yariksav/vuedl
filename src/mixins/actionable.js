@@ -16,7 +16,8 @@ export default {
       type: [Array, Object, Function],
       default: () => []
     },
-    handle: Function,
+    handle: Function, // todo: remove this parameter in next version
+    handler: Function,
     params: Object
   },
 
@@ -46,6 +47,12 @@ export default {
         actions.push(action)
       }
       return actions
+    }
+  },
+
+  created () {
+    if (this.handle) {
+      console.warn('DEPRECATED: "handle" prop will be deprecated, please use "handler" instead')
     }
   },
 
@@ -87,12 +94,12 @@ export default {
     },
     async onActionClick (action) {
       const closable = action.closable === undefined || action.closable === true
-      const handle = action.handle || this.handle
-      if (typeof handle === 'function') {
+      const handler = action.handle || action.handler || this.handle || this.handler
+      if (typeof handler === 'function') {
         this.loadingAction = action.key
         this.setLoadingState(true)
         try {
-          const ret = await handle(this.params, action)
+          const ret = await handler(this.params, action)
           this.setLoadingState(false)
           if (ret !== false && closable) {
             this.return(ret || action.key)

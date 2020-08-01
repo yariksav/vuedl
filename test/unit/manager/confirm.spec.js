@@ -16,7 +16,7 @@ describe('manager', () => {
 
   test('returnable', async () => {
     const dlg = new Dialog({
-      mixins: [ Returnable ],
+      mixins: [Returnable],
       template: '<p></p>'
     })
     await dlg.show()
@@ -25,14 +25,14 @@ describe('manager', () => {
     setTimeout(() => {
       dlg.vmd.return(123)
     }, 5)
-    let res = await dlg.wait()
+    const res = await dlg.wait()
     expect(res).toBe(123)
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })
 
   test('Check confirm', async () => {
-    let dlg = await manager.confirm({
+    const dlg = await manager.confirm({
       text: 'test',
       actions: ['ok', 'cancel']
     })
@@ -41,16 +41,16 @@ describe('manager', () => {
     setTimeout(() => {
       wrapper.find('[action-key=ok]').trigger('click')
     }, 5)
-    let res = await dlg.wait()
+    const res = await dlg.wait()
     expect(res).toBe('ok')
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })
 
   test('Check confirm with btns true|false', async () => {
-    let dlg = await manager.confirm({
+    const dlg = await manager.confirm({
       text: 'test',
-      actions: { 'true': 'Yes', false: 'No' }
+      actions: { true: 'Yes', false: 'No' }
     })
     const wrapper = wrap(dlg.vm)
     expect(dlg.element).toMatchSnapshot()
@@ -59,20 +59,20 @@ describe('manager', () => {
     setTimeout(() => {
       wrapper.find('[action-key=true]').trigger('click')
     }, 10)
-    let res = await dlg.wait()
+    const res = await dlg.wait()
     expect(res).toBe(true)
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')
   })
 
-  test('Check confirm with handle functions', async () => {
-    let dlg = await manager.confirm({
+  test('Check confirm with handler functions', async () => {
+    const dlg = await manager.confirm({
       text: 'test',
       actions: {
         false: 'No',
         true: {
           text: 'Yes',
-          handle: () => {
+          handler: () => {
             return new Promise((resolve) => {
               setTimeout(() => resolve({ msg: 'foo' }), 10)
             })
@@ -89,7 +89,7 @@ describe('manager', () => {
         expect(dlg.element).toMatchSnapshot()
       })
     }, 5)
-    let res = await dlg.wait()
+    const res = await dlg.wait()
     expect(res).toEqual({ msg: 'foo' })
     await Vue.nextTick()
     expect(document.body.innerHTML).toBe('')

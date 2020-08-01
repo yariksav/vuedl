@@ -14,7 +14,7 @@ Inspire of Nuxt.js logic, **vuedl** also has `asyncData`, `fetch`, `layout` and 
 ## Used in frameworks
 1. [vuetify](https://www.npmjs.com/package/vuetify-dialog)
 
-2. [bootstrap-vue](https://www.npmjs.com/package/bootstrap-vue-dialog) 
+2. [bootstrap-vue](https://www.npmjs.com/package/bootstrap-vue-dialog) (not supported, need contributor)
 
 
 ## Setup
@@ -208,12 +208,12 @@ if (res) {
 ```
 *res* will be true or false
 
-For registering own Confirm template 
+For registering your own Confirm template 
 ```javascript
 Vue.prototype.$dialog.component('Confirm', MyConfirmDialog)
 ```
 
-For registering own Prompt template 
+For registering your own Prompt template 
 ```javascript
 Vue.prototype.$dialog.component('Prompt', MyPromptDialog)
 ```
